@@ -1,0 +1,406 @@
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import {
+    TeamOutlined,
+    CrownOutlined,
+    UserOutlined,
+    CheckCircleOutlined,
+    SearchOutlined,
+    CloseOutlined,
+    EditOutlined,
+    DeleteOutlined,
+    SaveOutlined
+} from '@ant-design/icons'
+
+const ROLE_CONFIG = {
+    superAdmin: { label: 'Super Admin', icon: <CrownOutlined />, bg: '#1a1a2e', color: '#fbbf24', border: '#f59e0b' },
+    customer: { label: 'Customer', icon: <UserOutlined />, bg: '#eff6ff', color: '#1d4ed8', border: '#bfdbfe' },
+}
+const STATUS_CONFIG = {
+    active: { label: 'Active', dot: '#22c55e', bg: '#f0fdf4', color: '#16a34a', border: '#bbf7d0' },
+    inactive: { label: 'Inactive', dot: '#ef4444', bg: '#fef2f2', color: '#dc2626', border: '#fecaca' },
+}
+
+const Users = () => {
+    const [documents, setDocuments] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
+    const [search, setSearch] = useState('')
+    const [filterRole, setFilterRole] = useState('all')
+
+    // Modal state
+    const [modalOpen, setModalOpen] = useState(false)
+    const [userToEdit, setUserToEdit] = useState(null)
+    const [editForm, setEditForm] = useState({ name: '', role: '', status: '' })
+    const [isProcessing, setIsProcessing] = useState(false)
+
+    // Delete confirm
+    const [confirmDelete, setConfirmDelete] = useState(null)
+
+    const token = () => localStorage.getItem('jwt')
+    const headers = () => ({ Authorization: `Bearer ${token()}` })
+
+    const getDocuments = () => {
+        setIsLoading(true)
+        axios.get(`${window.api}/api/auth/users`, { headers: headers() })
+            .then(res => { if (!res.data.isError) setDocuments(res.data.users) })
+            .catch(() => window.toastify('Something went wrong', 'error'))
+            .finally(() => setIsLoading(false))
+    }
+
+    useEffect(() => { getDocuments() }, [])
+
+    const handleEdit = (user) => {
+        setUserToEdit(user)
+        setEditForm({ name: user.fullName || '', role: user.role || '', status: user.status || '' })
+        setModalOpen(true)
+    }
+
+    const handleUpdate = () => {
+        if (!editForm.name.trim()) return window.toastify('Name is required', 'warning')
+        setIsProcessing(true)
+        axios.patch(`${window.api}/api/auth/update-user`,
+            { name: editForm.name, role: editForm.role, status: editForm.status, uid: userToEdit.uid },
+            { headers: headers() }
+        ).then(res => {
+            if (res.data.isError) return window.toastify(res.data.message, 'error')
+            window.toastify('User updated successfully', 'success')
+            setDocuments(prev => prev.map(d => d.uid === userToEdit.uid ? res.data.updatedUser : d))
+            setModalOpen(false)
+        }).catch(() => window.toastify('Something went wrong', 'error'))
+            .finally(() => setIsProcessing(false))
+    }
+
+    const handleDelete = (user) => {
+        setIsProcessing(true)
+        axios.delete(`${window.api}/api/auth/delete-user-by-superAdmin/${user.uid}`, { headers: headers() })
+            .then(res => {
+                if (res.data.isError) return window.toastify(res.data.message, 'error')
+                window.toastify('User deleted successfully', 'success')
+                setDocuments(prev => prev.filter(d => d.uid !== user.uid))
+                setConfirmDelete(null)
+            }).catch(() => window.toastify('Something went wrong', 'error'))
+            .finally(() => setIsProcessing(false))
+    }
+
+    const filtered = documents.filter(u => {
+        const matchSearch = !search ||
+            (u.fullName || '').toLowerCase().includes(search.toLowerCase()) ||
+            (u.email || '').toLowerCase().includes(search.toLowerCase())
+        const matchRole = filterRole === 'all' || u.role === filterRole
+        return matchSearch && matchRole
+    })
+
+    const admins = documents.filter(u => u.role === 'superAdmin').length
+    const customers = documents.filter(u => u.role === 'customer').length
+    const active = documents.filter(u => u.status === 'active').length
+
+    return (
+        <div style={{ padding: 'clamp(14px, 3vw, 28px)', fontFamily: "'Inter', sans-serif", minHeight: '100%', background: '#f8fafc' }}>
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+                @keyframes usr-in { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+                @keyframes usr-spin { to{transform:rotate(360deg)} }
+                @keyframes pulse-dot { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.6);opacity:0.5} }
+                .usr-row { transition: background 0.18s, box-shadow 0.18s; }
+                .usr-row:hover { background: #f1f5f9 !important; }
+                .usr-icon-btn { transition: all 0.2s; border:none; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; border-radius:10px; }
+                .usr-icon-btn:hover { transform:translateY(-2px); }
+                .usr-search:focus { outline:none; border-color:#0d9488 !important; box-shadow:0 0 0 3px rgba(13,148,136,0.15) !important; }
+                .usr-select:focus { outline:none; border-color:#0d9488 !important; box-shadow:0 0 0 3px rgba(13,148,136,0.15) !important; }
+                .usr-modal-input:focus { outline:none; border-color:#0d9488 !important; box-shadow:0 0 0 3px rgba(13,148,136,0.15) !important; }
+                .usr-modal-select:focus { outline:none; border-color:#0d9488 !important; box-shadow:0 0 0 3px rgba(13,148,136,0.15) !important; }
+                .usr-save-btn:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 8px 24px rgba(13,148,136,0.35) !important; }
+                .usr-save-btn { transition:all 0.2s; }
+
+                /* Smooth Horizontal Scrollbar for Users Table */
+                .usr-table-scroll::-webkit-scrollbar { height: 6px; }
+                .usr-table-scroll::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+                .usr-table-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+                .usr-table-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+                @media (max-width: 576px) {
+                    .usr-filter-box { flex-direction: column !important; align-items: stretch !important; }
+                    .usr-filter-info { margin-left: 0 !important; text-align: left !important; }
+                }
+            `}</style>
+
+            {/* ── Header ── */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24, flexWrap: 'wrap', gap: 12, animation: 'usr-in 0.4s ease' }}>
+                <div>
+                    <h1 style={{ margin: 0, fontSize: 'clamp(20px, 4vw, 26px)', fontWeight: 800, color: '#0f172a', letterSpacing: -0.5, display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <TeamOutlined style={{ color: '#0d9488' }} /> Users Management
+                    </h1>
+                    <p style={{ margin: '4px 0 0', fontSize: 13, color: '#94a3b8' }}>Manage all registered users and their roles</p>
+                </div>
+                <div style={{ fontSize: 13, color: '#0d9488', background: '#ccfbf1', border: '1px solid #99f6e4', borderRadius: 10, padding: '7px 14px', fontWeight: 600 }}>
+                    {documents.length} total users
+                </div>
+            </div>
+
+            {/* ── Stat Cards ── */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(140px,1fr))', gap: 14, marginBottom: 24, animation: 'usr-in 0.4s ease 0.05s both' }}>
+                {[
+                    { label: 'Total Users', value: documents.length, icon: <TeamOutlined />, color: '#0d9488', bg: '#ccfbf1' },
+                    { label: 'Super Admins', value: admins, icon: <CrownOutlined />, color: '#d97706', bg: '#fef3c7' },
+                    { label: 'Customers', value: customers, icon: <UserOutlined />, color: '#0284c7', bg: '#e0f2fe' },
+                    { label: 'Active', value: active, icon: <CheckCircleOutlined />, color: '#16a34a', bg: '#dcfce7' },
+                ].map((s, i) => (
+                    <div key={i} style={{ background: '#fff', borderRadius: 16, padding: '14px 16px', boxShadow: '0 2px 10px rgba(0,0,0,0.05)', display: 'flex', alignItems: 'center', gap: 12 }}>
+                        <div style={{ width: 40, height: 40, borderRadius: 12, background: s.bg, color: s.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0 }}>
+                            {s.icon}
+                        </div>
+                        <div>
+                            <div style={{ fontSize: 20, fontWeight: 800, color: '#0f172a', lineHeight: 1 }}>{s.value}</div>
+                            <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 600, marginTop: 3 }}>{s.label}</div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* ── Filters ── */}
+            <div className="usr-filter-box" style={{ background: '#fff', borderRadius: 16, padding: '14px 18px', marginBottom: 18, boxShadow: '0 2px 10px rgba(0,0,0,0.05)', display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center', animation: 'usr-in 0.4s ease 0.1s both' }}>
+                <div style={{ position: 'relative', flex: 1, minWidth: 180, display: 'flex', alignItems: 'center' }}>
+                    <SearchOutlined style={{ position: 'absolute', left: 12, color: '#94a3b8', fontSize: 14 }} />
+                    <input
+                        className="usr-search"
+                        type="text"
+                        placeholder="Search by name or email…"
+                        value={search}
+                        onChange={e => setSearch(e.target.value)}
+                        style={{ width: '100%', padding: '10px 14px 10px 34px', borderRadius: 10, border: '1.5px solid #e2e8f0', fontSize: 13, background: '#f8fafc', color: '#0f172a', transition: 'all 0.2s' }}
+                    />
+                </div>
+                <select
+                    className="usr-select"
+                    value={filterRole}
+                    onChange={e => setFilterRole(e.target.value)}
+                    style={{ padding: '10px 14px', borderRadius: 10, border: '1.5px solid #e2e8f0', fontSize: 13, background: '#f8fafc', color: '#0f172a', cursor: 'pointer', transition: 'all 0.2s' }}
+                >
+                    <option value="all">All Roles</option>
+                    <option value="superAdmin">Super Admin</option>
+                    <option value="customer">Customer</option>
+                </select>
+                {(search || filterRole !== 'all') && (
+                    <button onClick={() => { setSearch(''); setFilterRole('all') }}
+                        style={{ padding: '10px 14px', borderRadius: 10, border: '1.5px solid #e2e8f0', fontSize: 12, background: '#f1f5f9', color: '#64748b', cursor: 'pointer', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                        <CloseOutlined /> Clear
+                    </button>
+                )}
+                <div className="usr-filter-info" style={{ marginLeft: 'auto', fontSize: 12, color: '#94a3b8', fontWeight: 500 }}>
+                    Showing {filtered.length} of {documents.length}
+                </div>
+            </div>
+
+            {/* ── Table Container ── */}
+            <div style={{ background: '#fff', borderRadius: 20, boxShadow: '0 4px 20px rgba(0,0,0,0.07)', overflow: 'hidden', animation: 'usr-in 0.4s ease 0.15s both' }}>
+                <div className="usr-table-scroll" style={{ width: '100%', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+                    <div style={{ minWidth: '850px' }}>
+
+                        {/* Table Header */}
+                        <div style={{ display: 'grid', gridTemplateColumns: '2fr 2fr 3fr 1.5fr 1.5fr 90px', gap: 10, background: '#042f2e', padding: '14px 20px' }}>
+                            {['Name', 'UID', 'Email', 'Role', 'Status', 'Actions'].map((h, i) => (
+                                <div key={i} style={{ fontSize: 11, fontWeight: 700, color: '#5eead4', textTransform: 'uppercase', letterSpacing: 1 }}>{h}</div>
+                            ))}
+                        </div>
+
+                        {/* Loading */}
+                        {isLoading && (
+                            <div style={{ padding: 48, textAlign: 'center' }}>
+                                <div style={{ width: 36, height: 36, border: '3px solid #e2e8f0', borderTop: '3px solid #0d9488', borderRadius: '50%', animation: 'usr-spin 0.8s linear infinite', margin: '0 auto 12px' }} />
+                                <p style={{ color: '#94a3b8', fontSize: 13 }}>Loading users…</p>
+                            </div>
+                        )}
+
+                        {/* Empty */}
+                        {!isLoading && filtered.length === 0 && (
+                            <div style={{ padding: 56, textAlign: 'center' }}>
+                                <div style={{ fontSize: 44, marginBottom: 12, color: '#94a3b8' }}><SearchOutlined /></div>
+                                <div style={{ fontSize: 15, fontWeight: 600, color: '#475569' }}>No users found</div>
+                                <div style={{ fontSize: 13, color: '#94a3b8', marginTop: 4 }}>Try adjusting your search or filter</div>
+                            </div>
+                        )}
+
+                        {/* Rows */}
+                        {!isLoading && filtered.map((user, i) => {
+                            const role = ROLE_CONFIG[user.role] || ROLE_CONFIG.customer
+                            const status = STATUS_CONFIG[user.status] || STATUS_CONFIG.inactive
+                            return (
+                                <div key={user.uid} className="usr-row" style={{
+                                    display: 'grid', gridTemplateColumns: '2fr 2fr 3fr 1.5fr 1.5fr 90px',
+                                    gap: 10, padding: '14px 20px', alignItems: 'center',
+                                    borderBottom: i < filtered.length - 1 ? '1px solid #f1f5f9' : 'none',
+                                    background: '#fff'
+                                }}>
+                                    {/* Name + Avatar */}
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
+                                        <div style={{
+                                            width: 38, height: 38, borderRadius: 12, flexShrink: 0, overflow: 'hidden',
+                                            background: user.profilePicture ? '#fff' : `linear-gradient(135deg, ${role.color}33, ${role.color}66)`,
+                                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                            border: `1.5px solid ${role.border}`, fontSize: 15, fontWeight: 700, color: role.color
+                                        }}>
+                                            {user.profilePicture
+                                                ? <img src={user.profilePicture} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                                : (user.fullName || 'U').charAt(0).toUpperCase()
+                                            }
+                                        </div>
+                                        <div style={{ minWidth: 0 }}>
+                                            <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                                {user.fullName || '—'}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* UID */}
+                                    <div style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'monospace', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                        {user.uid}
+                                    </div>
+
+                                    {/* Email */}
+                                    <div style={{ fontSize: 13, color: '#475569', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                        {user.email}
+                                    </div>
+
+                                    {/* Role badge */}
+                                    <div>
+                                        <span style={{
+                                            display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11,
+                                            fontWeight: 700, padding: '4px 12px', borderRadius: 999,
+                                            background: role.bg, color: role.color,
+                                            border: `1px solid ${role.border}`, textTransform: 'capitalize',
+                                            whiteSpace: 'nowrap'
+                                        }}>
+                                            {role.icon} {role.label}
+                                        </span>
+                                    </div>
+
+                                    {/* Status badge */}
+                                    <div>
+                                        <span style={{
+                                            display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 11,
+                                            fontWeight: 700, padding: '4px 12px', borderRadius: 999,
+                                            background: status.bg, color: status.color,
+                                            border: `1px solid ${status.border}`,
+                                        }}>
+                                            <span style={{ width: 6, height: 6, borderRadius: '50%', background: status.dot, animation: user.status === 'active' ? 'pulse-dot 2s infinite' : 'none', display: 'inline-block' }} />
+                                            {status.label}
+                                        </span>
+                                    </div>
+
+                                    {/* Actions */}
+                                    <div style={{ display: 'flex', gap: 6 }}>
+                                        <button className="usr-icon-btn" onClick={() => handleEdit(user)}
+                                            style={{ width: 32, height: 32, background: '#ccfbf1', color: '#0d9488', fontSize: 13, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+                                            title="Edit user">
+                                            <EditOutlined />
+                                        </button>
+                                        <button className="usr-icon-btn" onClick={() => setConfirmDelete(user)}
+                                            style={{ width: 32, height: 32, background: '#fef2f2', color: '#dc2626', fontSize: 13, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+                                            title="Delete user">
+                                            <DeleteOutlined />
+                                        </button>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+            </div>
+
+            {/* ── Edit Modal ── */}
+            {modalOpen && userToEdit && (
+                <div style={{ position: 'fixed', inset: 0, background: 'rgba(4,47,46,0.6)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, backdropFilter: 'blur(4px)' }}
+                    onClick={e => { if (e.target === e.currentTarget) setModalOpen(false) }}>
+                    <div style={{ background: '#fff', borderRadius: 24, padding: 24, width: '100%', maxWidth: 440, boxShadow: '0 24px 64px rgba(0,0,0,0.18)', animation: 'usr-in 0.3s ease' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
+                            <div style={{ width: 44, height: 44, borderRadius: 14, background: '#ccfbf1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0, color: '#0d9488' }}><EditOutlined /></div>
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                                <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a' }}>Edit User</div>
+                                <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{userToEdit.email}</div>
+                            </div>
+                            <button onClick={() => setModalOpen(false)} style={{ width: 32, height: 32, borderRadius: '50%', border: 'none', background: '#f1f5f9', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b' }}><CloseOutlined /></button>
+                        </div>
+
+                        {/* Name */}
+                        <div style={{ marginBottom: 16 }}>
+                            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 7 }}>Full Name</label>
+                            <input className="usr-modal-input"
+                                value={editForm.name}
+                                onChange={e => setEditForm(f => ({ ...f, name: e.target.value }))}
+                                placeholder="Enter full name"
+                                style={{ width: '100%', padding: '11px 14px', borderRadius: 10, border: '1.5px solid #e2e8f0', fontSize: 14, color: '#0f172a', background: '#f8fafc', boxSizing: 'border-box', transition: 'all 0.2s' }}
+                            />
+                        </div>
+
+                        {/* Role */}
+                        <div style={{ marginBottom: 16 }}>
+                            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 7 }}>Role</label>
+                            <select className="usr-modal-select"
+                                value={editForm.role}
+                                onChange={e => setEditForm(f => ({ ...f, role: e.target.value }))}
+                                style={{ width: '100%', padding: '11px 14px', borderRadius: 10, border: '1.5px solid #e2e8f0', fontSize: 14, color: '#0f172a', background: '#f8fafc', cursor: 'pointer', transition: 'all 0.2s' }}>
+                                <option value="customer">Customer</option>
+                                <option value="superAdmin">Super Admin</option>
+                            </select>
+                        </div>
+
+                        {/* Status */}
+                        <div style={{ marginBottom: 24 }}>
+                            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 7 }}>Status</label>
+                            <select className="usr-modal-select"
+                                value={editForm.status}
+                                onChange={e => setEditForm(f => ({ ...f, status: e.target.value }))}
+                                style={{ width: '100%', padding: '11px 14px', borderRadius: 10, border: '1.5px solid #e2e8f0', fontSize: 14, color: '#0f172a', background: '#f8fafc', cursor: 'pointer', transition: 'all 0.2s' }}>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+
+                        <div style={{ display: 'flex', gap: 10 }}>
+                            <button onClick={() => setModalOpen(false)}
+                                style={{ flex: 1, padding: '12px', borderRadius: 12, border: '1.5px solid #e2e8f0', background: '#f8fafc', color: '#64748b', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
+                                Cancel
+                            </button>
+                            <button className="usr-save-btn" onClick={handleUpdate} disabled={isProcessing}
+                                style={{ flex: 2, padding: '12px', borderRadius: 12, border: 'none', background: isProcessing ? '#99f6e4' : 'linear-gradient(135deg,#0d9488,#042f2e)', color: '#fff', fontSize: 14, fontWeight: 700, cursor: isProcessing ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 4px 14px rgba(13,148,136,0.3)' }}>
+                                {isProcessing
+                                    ? <><span style={{ width: 16, height: 16, border: '2px solid rgba(255,255,255,0.4)', borderTop: '2px solid #fff', borderRadius: '50%', animation: 'usr-spin 0.8s linear infinite', display: 'inline-block' }} />Saving...</>
+                                    : <><SaveOutlined /> Save Changes</>
+                                }
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* ── Delete Confirm Modal ── */}
+            {confirmDelete && (
+                <div style={{ position: 'fixed', inset: 0, background: 'rgba(15,12,41,0.6)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, backdropFilter: 'blur(4px)' }}
+                    onClick={e => { if (e.target === e.currentTarget) setConfirmDelete(null) }}>
+                    <div style={{ background: '#fff', borderRadius: 24, padding: 28, width: '100%', maxWidth: 380, boxShadow: '0 24px 64px rgba(0,0,0,0.18)', textAlign: 'center', animation: 'usr-in 0.3s ease' }}>
+                        <div style={{ width: 60, height: 60, borderRadius: '50%', background: '#fef2f2', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 26, margin: '0 auto 14px', color: '#dc2626' }}><DeleteOutlined /></div>
+                        <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a', marginBottom: 8 }}>Delete User?</div>
+                        <div style={{ fontSize: 13, color: '#64748b', marginBottom: 20, lineHeight: 1.6 }}>
+                            Are you sure you want to delete <strong>"{confirmDelete.fullName}"</strong>?<br />This action cannot be undone.
+                        </div>
+                        <div style={{ display: 'flex', gap: 10 }}>
+                            <button onClick={() => setConfirmDelete(null)}
+                                style={{ flex: 1, padding: '12px', borderRadius: 12, border: '1.5px solid #e2e8f0', background: '#f8fafc', color: '#64748b', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
+                                Cancel
+                            </button>
+                            <button onClick={() => handleDelete(confirmDelete)} disabled={isProcessing}
+                                style={{ flex: 1, padding: '12px', borderRadius: 12, border: 'none', background: isProcessing ? '#fca5a5' : 'linear-gradient(135deg,#ef4444,#dc2626)', color: '#fff', fontSize: 14, fontWeight: 700, cursor: isProcessing ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 4px 14px rgba(239,68,68,0.3)', transition: 'all 0.2s' }}>
+                                {isProcessing
+                                    ? <><span style={{ width: 16, height: 16, border: '2px solid rgba(255,255,255,0.4)', borderTop: '2px solid #fff', borderRadius: '50%', animation: 'usr-spin 0.8s linear infinite', display: 'inline-block' }} />Deleting...</>
+                                    : <><DeleteOutlined /> Delete</>
+                                }
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    )
+}
+
+export default Users
