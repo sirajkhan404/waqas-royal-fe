@@ -202,8 +202,8 @@ const Messages = () => {
 
                 .msg-search-input:focus {
                     outline: none;
-                    border-color: #0d9488 !important;
-                    box-shadow: 0 0 0 3px rgba(13,148,136,0.15) !important;
+                    border-color: #525E46 !important;
+                    box-shadow: 0 0 0 3px rgba(82,94,70,0.15) !important;
                 }
 
                 .msg-tab-btn {
@@ -220,10 +220,10 @@ const Messages = () => {
                 }
 
                 .msg-tab-btn.active {
-                    background: linear-gradient(135deg, #0d9488, #042f2e);
+                    background: linear-gradient(135deg, #525E46, #141414);
                     color: #ffffff;
                     border-color: transparent;
-                    box-shadow: 0 2px 8px rgba(13,148,136,0.25);
+                    box-shadow: 0 2px 8px rgba(82,94,70,0.25);
                 }
 
                 .msg-tab-btn:hover:not(.active) {
@@ -241,11 +241,11 @@ const Messages = () => {
                 }
 
                 .msg-item:hover {
-                    background: #f0fdfa !important;
+                    background: #F4F6F2 !important;
                 }
 
                 .msg-item.active {
-                    background: #f0fdfa !important;
+                    background: #F4F6F2 !important;
                 }
 
                 .msg-item.active::before {
@@ -255,7 +255,7 @@ const Messages = () => {
                     top: 0;
                     bottom: 0;
                     width: 4px;
-                    background: linear-gradient(180deg, #0d9488, #042f2e);
+                    background: linear-gradient(180deg, #525E46, #141414);
                     border-radius: 0 4px 4px 0;
                 }
 
@@ -277,14 +277,14 @@ const Messages = () => {
 
                 .msg-reply-textarea:focus {
                     outline: none;
-                    border-color: #0d9488 !important;
-                    box-shadow: 0 0 0 3px rgba(13,148,136,0.15) !important;
+                    border-color: #525E46 !important;
+                    box-shadow: 0 0 0 3px rgba(82,94,70,0.15) !important;
                 }
 
                 .msg-template-btn {
-                    border: 1px solid #ccfbf1;
-                    background: #f0fdfa;
-                    color: #0f766e;
+                    border: 1px solid #DCE3D5;
+                    background: #F1F5E9;
+                    color: #525E46;
                     font-size: 11.5px;
                     font-weight: 600;
                     border-radius: 8px;
@@ -293,13 +293,13 @@ const Messages = () => {
                     transition: all 0.15s ease;
                 }
                 .msg-template-btn:hover {
-                    background: #ccfbf1;
-                    color: #042f2e;
+                    background: #EAEDE6;
+                    color: #141414;
                     transform: translateY(-1px);
                 }
 
                 .msg-btn-primary {
-                    background: linear-gradient(135deg, #0d9488, #042f2e);
+                    background: linear-gradient(135deg, #525E46, #141414);
                     color: #ffffff;
                     border: none;
                     border-radius: 12px;
@@ -310,12 +310,17 @@ const Messages = () => {
                     display: inline-flex;
                     align-items: center;
                     gap: 8px;
-                    box-shadow: 0 4px 14px rgba(13,148,136,0.25);
+                    box-shadow: 0 4px 14px rgba(82,94,70,0.3);
+                    transition: all 0.2s ease;
+                }
+                    align-items: center;
+                    gap: 8px;
+                    box-shadow: 0 4px 14px rgba(82,94,70,0.25);
                     transition: all 0.2s ease;
                 }
                 .msg-btn-primary:hover:not(:disabled) {
                     transform: translateY(-2px);
-                    box-shadow: 0 8px 22px rgba(13,148,136,0.35);
+                    box-shadow: 0 8px 22px rgba(82,94,70,0.35);
                 }
                 .msg-btn-primary:disabled {
                     opacity: 0.6;
@@ -359,7 +364,7 @@ const Messages = () => {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20, flexWrap: 'wrap', gap: 12, animation: 'msg-fade 0.35s ease' }}>
                 <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <MessageOutlined style={{ fontSize: 24, color: '#0d9488' }} />
+                        <MessageOutlined style={{ fontSize: 24, color: '#525E46' }} />
                         <h1 style={{ margin: 0, fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 800, color: '#0f172a', letterSpacing: -0.5 }}>
                             {isSuperAdmin ? 'Support Messages & Inquiries' : 'My Support Inquiries'}
                         </h1>
@@ -381,10 +386,10 @@ const Messages = () => {
                         onClick={fetchMessages}
                         disabled={loading}
                         style={{
-                            padding: '9px 16px', borderRadius: 12, border: '1.5px solid #ccfbf1',
-                            background: '#ffffff', color: '#0d9488', fontSize: 13, fontWeight: 700,
+                            padding: '9px 16px', borderRadius: 12, border: '1.5px solid #DCE3D5',
+                            background: '#ffffff', color: '#525E46', fontSize: 13, fontWeight: 700,
                             cursor: loading ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', gap: 6,
-                            boxShadow: '0 2px 8px rgba(13,148,136,0.08)'
+                            boxShadow: '0 2px 8px rgba(82,94,70,0.08)'
                         }}
                     >
                         <ReloadOutlined spin={loading} />
@@ -396,7 +401,7 @@ const Messages = () => {
             {/* ── Stat Summary Cards ───────────────────────────────────────── */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 14, marginBottom: 20, animation: 'msg-fade 0.35s ease 0.05s both' }}>
                 {[
-                    { label: 'Total Messages', value: totalCount, icon: <MailOutlined />, bg: '#ccfbf1', color: '#0d9488' },
+                    { label: 'Total Messages', value: totalCount, icon: <MailOutlined />, bg: '#EAEDE6', color: '#525E46' },
                     { label: 'Pending Reply', value: pendingCount, icon: <ClockCircleOutlined />, bg: '#fef3c7', color: '#d97706' },
                     { label: 'Replied / Resolved', value: repliedCount, icon: <CheckCircleOutlined />, bg: '#dcfce7', color: '#16a34a' },
                 ].map((s, i) => (
@@ -466,7 +471,7 @@ const Messages = () => {
                     <div className="msg-custom-scrollbar" style={{ flex: 1, overflowY: 'auto' }}>
                         {loading ? (
                             <div style={{ padding: 48, textAlign: 'center' }}>
-                                <div style={{ width: 32, height: 32, border: '3px solid #ccfbf1', borderTop: '3px solid #0d9488', borderRadius: '50%', animation: 'msg-spin 0.8s linear infinite', margin: '0 auto 10px' }} />
+                                <div style={{ width: 32, height: 32, border: '3px solid #DCE3D5', borderTop: '3px solid #525E46', borderRadius: '50%', animation: 'msg-spin 0.8s linear infinite', margin: '0 auto 10px' }} />
                                 <div style={{ fontSize: 13, color: '#94a3b8', fontWeight: 600 }}>Loading inbox...</div>
                             </div>
                         ) : filteredMessages.length === 0 ? (
@@ -492,8 +497,8 @@ const Messages = () => {
                                             {/* Avatar Initial */}
                                             <div style={{
                                                 width: 36, height: 36, borderRadius: 10, flexShrink: 0,
-                                                background: isSelected ? 'linear-gradient(135deg, #0d9488, #042f2e)' : '#f1f5f9',
-                                                color: isSelected ? '#ffffff' : '#0d9488',
+                                                background: isSelected ? 'linear-gradient(135deg, #525E46, #141414)' : '#f1f5f9',
+                                                color: isSelected ? '#ffffff' : '#525E46',
                                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                                                 fontSize: 14, fontWeight: 700
                                             }}>
@@ -510,7 +515,7 @@ const Messages = () => {
                                                     </span>
                                                 </div>
 
-                                                <div style={{ fontSize: 12, fontWeight: 600, color: '#0d9488', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginBottom: 2 }}>
+                                                <div style={{ fontSize: 12, fontWeight: 600, color: '#525E46', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginBottom: 2 }}>
                                                     {isSuperAdmin ? msg.subject : msg.email}
                                                 </div>
 
@@ -563,9 +568,9 @@ const Messages = () => {
 
                                     <div style={{
                                         width: 42, height: 42, borderRadius: 12, flexShrink: 0,
-                                        background: 'linear-gradient(135deg, #0d9488, #042f2e)',
+                                        background: 'linear-gradient(135deg, #525E46, #141414)',
                                         color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                        fontSize: 16, fontWeight: 800, boxShadow: '0 2px 8px rgba(13,148,136,0.25)'
+                                        fontSize: 16, fontWeight: 800, boxShadow: '0 2px 8px rgba(82,94,70,0.25)'
                                     }}>
                                         {selectedMessage.name?.charAt(0)?.toUpperCase() || 'U'}
                                     </div>
@@ -615,7 +620,7 @@ const Messages = () => {
                                 {/* Subject Card Banner */}
                                 <div style={{ background: '#ffffff', borderRadius: 14, padding: '14px 18px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.03)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
                                     <div>
-                                        <div style={{ fontSize: 10.5, fontWeight: 700, color: '#0d9488', textTransform: 'uppercase', letterSpacing: 0.8 }}>Subject / Topic</div>
+                                        <div style={{ fontSize: 10.5, fontWeight: 700, color: '#525E46', textTransform: 'uppercase', letterSpacing: 0.8 }}>Subject / Topic</div>
                                         <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', marginTop: 2 }}>{selectedMessage.subject}</div>
                                     </div>
                                     <div style={{ textAlign: 'right', fontSize: 11.5, color: '#94a3b8' }}>
@@ -647,10 +652,10 @@ const Messages = () => {
                                 {selectedMessage.isReplied && (
                                     <div style={{ maxWidth: '85%', alignSelf: 'flex-end', animation: 'msg-fade 0.3s ease' }}>
                                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 6, marginBottom: 4, paddingRight: 4 }}>
-                                            <span style={{ fontSize: 10.5, fontWeight: 700, padding: '1px 8px', borderRadius: 999, background: '#ccfbf1', color: '#0f766e', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                                            <span style={{ fontSize: 10.5, fontWeight: 700, padding: '1px 8px', borderRadius: 999, background: '#EAEDE6', color: '#525E46', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                                                 <CheckCircleOutlined /> Sent to User Dashboard
                                             </span>
-                                            <span style={{ fontSize: 12, fontWeight: 700, color: '#0d9488', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                                            <span style={{ fontSize: 12, fontWeight: 700, color: '#525E46', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                                                 <CrownOutlined /> SuperAdmin Response
                                             </span>
                                             {selectedMessage.repliedAt && (
@@ -660,9 +665,9 @@ const Messages = () => {
                                             )}
                                         </div>
                                         <div style={{
-                                            background: 'linear-gradient(135deg, #0d9488 0%, #042f2e 100%)',
+                                            background: 'linear-gradient(135deg, #525E46 0%, #141414 100%)',
                                             borderRadius: '18px 4px 18px 18px', padding: '16px 18px',
-                                            boxShadow: '0 4px 16px rgba(13,148,136,0.25)',
+                                            boxShadow: '0 4px 16px rgba(82,94,70,0.25)',
                                             color: '#ffffff', fontSize: 14, lineHeight: 1.6, whiteSpace: 'pre-wrap', wordBreak: 'break-word'
                                         }}>
                                             {selectedMessage.replyText}
@@ -744,7 +749,7 @@ const Messages = () => {
                                     </form>
                                 </div>
                             ) : (
-                                <div style={{ padding: '14px 20px', borderTop: '1px solid #e2e8f0', background: '#f0fdfa', textAlign: 'center', color: '#0f766e', fontSize: 13, fontWeight: 600 }}>
+                                <div style={{ padding: '14px 20px', borderTop: '1px solid #e2e8f0', background: '#F1F5E9', textAlign: 'center', color: '#525E46', fontSize: 13, fontWeight: 600 }}>
                                     {selectedMessage.isReplied
                                         ? <><CheckCircleOutlined style={{ marginRight: 6, color: '#16a34a' }} /> SuperAdmin has responded to your inquiry above.</>
                                         : <><ClockCircleOutlined style={{ marginRight: 6, color: '#d97706' }} /> Your inquiry is under review by SuperAdmin. We will respond soon!</>}
@@ -754,7 +759,7 @@ const Messages = () => {
                         </div>
                     ) : (
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', padding: 40, textAlign: 'center' }}>
-                            <div style={{ width: 70, height: 70, borderRadius: '50%', background: '#ccfbf1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, marginBottom: 14, color: '#0d9488' }}>
+                            <div style={{ width: 70, height: 70, borderRadius: '50%', background: '#EAEDE6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, marginBottom: 14, color: '#525E46' }}>
                                 <MessageOutlined />
                             </div>
                             <div style={{ fontSize: 18, fontWeight: 800, color: '#0f172a', marginBottom: 4 }}>Select a Message</div>
@@ -769,18 +774,18 @@ const Messages = () => {
             {/* ── Customer New Inquiry Modal ───────────────────────────────── */}
             {newInquiryModalOpen && (
                 <div
-                    style={{ position: 'fixed', inset: 0, background: 'rgba(4, 47, 46, 0.65)', backdropFilter: 'blur(5px)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}
+                    style={{ position: 'fixed', inset: 0, background: 'rgba(20, 20, 20, 0.65)', backdropFilter: 'blur(5px)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}
                     onClick={e => { if (e.target === e.currentTarget) setNewInquiryModalOpen(false); }}
                 >
                     <div style={{ background: '#ffffff', borderRadius: 24, width: '100%', maxWidth: 540, boxShadow: '0 24px 64px rgba(0,0,0,0.2)', overflow: 'hidden', animation: 'msg-fade 0.25s ease' }}>
 
                         {/* Modal Header */}
-                        <div style={{ padding: '20px 24px', background: 'linear-gradient(135deg, #0d9488, #042f2e)', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <div style={{ padding: '20px 24px', background: 'linear-gradient(135deg, #525E46, #141414)', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                                 <span style={{ fontSize: 20 }}><PlusOutlined /></span>
                                 <div>
                                     <div style={{ fontSize: 17, fontWeight: 800 }}>New Support Inquiry</div>
-                                    <div style={{ fontSize: 12, color: '#5eead4', marginTop: 1 }}>Send a message directly to store support</div>
+                                    <div style={{ fontSize: 12, color: '#DCE3D5', marginTop: 1 }}>Send a message directly to store support</div>
                                 </div>
                             </div>
                             <button

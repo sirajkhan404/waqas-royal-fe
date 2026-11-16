@@ -59,10 +59,10 @@ const Profile = () => {
 
     return (
         <div className="p-3 p-sm-4 p-lg-5 text-white position-relative overflow-hidden w-100 flex-grow-1"
-            style={{ minHeight: 'calc(100vh - 70px)', background: 'linear-gradient(135deg, #042f2e 0%, #032221 50%, #021a19 100%)', fontFamily: "'Inter', sans-serif" }}>
+            style={{ minHeight: 'calc(100vh - 70px)', background: 'linear-gradient(135deg, #141414 0%, #1A2218 50%, #11150F 100%)', fontFamily: "'Inter', sans-serif" }}>
 
             {/* Background glowing blurred decorative blobs */}
-            <div className="position-fixed rounded-circle pointer-event-none" style={{ top: '80px', right: '80px', width: '300px', height: '300px', background: 'rgba(13,148,136,0.15)', filter: 'blur(60px)', zIndex: 0 }} />
+            <div className="position-fixed rounded-circle pointer-event-none" style={{ top: '80px', right: '80px', width: '300px', height: '300px', background: 'rgba(82,94,70,0.25)', filter: 'blur(60px)', zIndex: 0 }} />
             <div className="position-fixed rounded-circle pointer-event-none" style={{ bottom: '80px', left: '60px', width: '250px', height: '250px', background: 'rgba(245,158,11,0.08)', filter: 'blur(60px)', zIndex: 0 }} />
 
             <div className="mx-auto position-relative" style={{ maxWidth: '720px', zIndex: 2 }}>
@@ -72,7 +72,7 @@ const Profile = () => {
                     style={{ background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}>
 
                     {/* Shimmer top bar */}
-                    <div style={{ height: '3px', background: 'linear-gradient(90deg, #0d9488, #5eead4, #f59e0b, #5eead4, #0d9488)', backgroundSize: '200%' }} />
+                    <div style={{ height: '3px', background: 'linear-gradient(90deg, #525E46, #A5B68D, #f59e0b, #A5B68D, #525E46)', backgroundSize: '200%' }} />
 
                     <div className="card-body p-3 p-sm-4 p-md-5 d-flex align-items-center gap-3 gap-sm-4 flex-wrap">
 
@@ -81,8 +81,8 @@ const Profile = () => {
                             <div className="rounded-circle overflow-hidden d-flex align-items-center justify-content-center shadow-lg"
                                 style={{
                                     width: '80px', height: '80px',
-                                    border: '3px solid rgba(94,234,212,0.6)',
-                                    background: imagePreview ? '#000' : 'linear-gradient(135deg, #0d9488, #042f2e)',
+                                    border: '3px solid rgba(220,227,213,0.6)',
+                                    background: imagePreview ? '#000' : 'linear-gradient(135deg, #525E46, #141414)',
                                 }}>
                                 {imagePreview
                                     ? <img src={imagePreview} alt="dp" className="w-100 h-100 object-fit-cover" />
@@ -93,8 +93,8 @@ const Profile = () => {
                             <div className="position-absolute bottom-0 end-0 rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
                                 style={{
                                     width: '28px', height: '28px',
-                                    background: 'linear-gradient(135deg,#0d9488,#042f2e)',
-                                    border: '2px solid #032221',
+                                    background: 'linear-gradient(135deg,#525E46,#141414)',
+                                    border: '2px solid #141414',
                                     fontSize: '12px'
                                 }}>
                                 <CameraOutlined />
@@ -112,9 +112,9 @@ const Profile = () => {
                                     style={{
                                         fontSize: '11px',
                                         padding: '4px 12px',
-                                        background: isAdmin ? 'rgba(245,158,11,0.2)' : 'rgba(13,148,136,0.2)',
-                                        color: isAdmin ? '#fbbf24' : '#5eead4',
-                                        border: `1px solid ${isAdmin ? 'rgba(245,158,11,0.4)' : 'rgba(94,234,212,0.4)'}`
+                                        background: isAdmin ? 'rgba(245,158,11,0.2)' : 'rgba(82,94,70,0.3)',
+                                        color: isAdmin ? '#fbbf24' : '#DCE3D5',
+                                        border: `1px solid ${isAdmin ? 'rgba(245,158,11,0.4)' : 'rgba(165,182,141,0.5)'}`
                                     }}>
                                     {isAdmin ? <><CrownOutlined className="me-1" /> Super Admin</> : <><ShoppingOutlined className="me-1" /> Customer</>}
                                 </span>
@@ -126,7 +126,7 @@ const Profile = () => {
                                 {[
                                     { label: 'Status', value: user?.status || 'active', color: '#4ade80' },
                                     { label: 'Member since', value: user?.createdAt ? new Date(user.createdAt).getFullYear() : '2024', color: '#fb923c' },
-                                    { label: 'Account', value: 'Verified', color: '#5eead4' },
+                                    { label: 'Account', value: 'Verified', color: '#DCE3D5' },
                                 ].map((s, i) => (
                                     <div key={i}>
                                         <div className="text-white-50 text-uppercase fw-semibold" style={{ fontSize: '10px', letterSpacing: '0.8px' }}>{s.label}</div>
@@ -146,13 +146,13 @@ const Profile = () => {
                         { key: 'security', icon: <SafetyCertificateOutlined />, label: 'Security' },
                     ].map(tab => (
                         <button key={tab.key}
-                            className={`btn rounded-3 px-4 py-2 fw-semibold d-flex align-items-center gap-2 border ${activeTab === tab.key ? 'text-teal border-teal' : 'text-white-50 bg-white bg-opacity-10 border-light border-opacity-10'}`}
+                            className={`btn rounded-3 px-4 py-2 fw-semibold d-flex align-items-center gap-2 border ${activeTab === tab.key ? 'text-white border-light' : 'text-white-50 bg-white bg-opacity-10 border-light border-opacity-10'}`}
                             onClick={() => setActiveTab(tab.key)}
                             style={{
                                 fontSize: '13.5px',
-                                background: activeTab === tab.key ? 'rgba(13,148,136,0.3)' : 'rgba(255,255,255,0.05)',
-                                color: activeTab === tab.key ? '#5eead4' : 'rgba(255,255,255,0.6)',
-                                borderColor: activeTab === tab.key ? 'rgba(94,234,212,0.5)' : 'rgba(255,255,255,0.1)'
+                                background: activeTab === tab.key ? '#525E46' : 'rgba(255,255,255,0.05)',
+                                color: activeTab === tab.key ? '#ffffff' : 'rgba(255,255,255,0.6)',
+                                borderColor: activeTab === tab.key ? '#6E7D60' : 'rgba(255,255,255,0.1)'
                             }}>
                             <span>{tab.icon}</span><span>{tab.label}</span>
                         </button>
@@ -209,8 +209,8 @@ const Profile = () => {
                                     onClick={() => fileInputRef.current?.click()}
                                     className="rounded-4 p-3 p-md-4 d-flex align-items-center gap-3 cursor-pointer border border-dashed transition-all"
                                     style={{
-                                        borderColor: imageFile ? 'rgba(94,234,212,0.7)' : 'rgba(255,255,255,0.15)',
-                                        background: imageFile ? 'rgba(13,148,136,0.15)' : 'rgba(255,255,255,0.03)',
+                                        borderColor: imageFile ? 'rgba(165,182,141,0.7)' : 'rgba(255,255,255,0.15)',
+                                        background: imageFile ? 'rgba(82,94,70,0.25)' : 'rgba(255,255,255,0.03)',
                                         cursor: 'pointer'
                                     }}
                                 >
@@ -222,7 +222,7 @@ const Profile = () => {
                                         }
                                     </div>
                                     <div className="min-width-0">
-                                        <div className="fw-semibold small text-truncate" style={{ color: imageFile ? '#5eead4' : 'rgba(255,255,255,0.7)' }}>
+                                        <div className="fw-semibold small text-truncate" style={{ color: imageFile ? '#DCE3D5' : 'rgba(255,255,255,0.7)' }}>
                                             {imageFile ? <><CheckOutlined className="me-1" /> {imageFile.name}</> : 'Click to upload a new photo'}
                                         </div>
                                         <div className="text-white-50 opacity-75 mt-1" style={{ fontSize: '11px' }}>PNG, JPG or GIF · Max 5MB</div>
@@ -236,9 +236,9 @@ const Profile = () => {
                                 disabled={loading}
                                 className="btn text-white w-100 rounded-pill py-3 fw-bold shadow-lg border-0"
                                 style={{
-                                    background: loading ? 'rgba(13,148,136,0.4)' : 'linear-gradient(135deg, #0d9488 0%, #0f766e 50%, #042f2e 100%)',
+                                    background: loading ? 'rgba(82,94,70,0.5)' : 'linear-gradient(135deg, #525E46 0%, #3F4935 50%, #141414 100%)',
                                     fontSize: '15px',
-                                    boxShadow: '0 4px 20px rgba(13,148,136,0.35)'
+                                    boxShadow: '0 4px 20px rgba(82,94,70,0.35)'
                                 }}
                             >
                                 {loading ? (

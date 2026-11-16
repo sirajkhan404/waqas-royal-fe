@@ -251,16 +251,16 @@ const All = () => {
                 <div className="pr-table-scroll" style={{ width: '100%', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
                     <div style={{ minWidth: '880px' }}>
                         {/* Header */}
-                        <div style={{ display: 'grid', gridTemplateColumns: '40px 60px 2.2fr 1.2fr 1.3fr 1.4fr 2fr 80px', gap: 10, background: '#042f2e', padding: '14px 20px', alignItems: 'center' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '40px 60px 2.2fr 1.2fr 1.3fr 1.4fr 2fr 80px', gap: 10, background: '#141414', padding: '14px 20px', alignItems: 'center' }}>
                             {['#', '', 'Name', 'Price', 'Stock', 'Category', 'Description', 'Actions'].map((h, i) => (
-                                <div key={i} style={{ fontSize: 11, fontWeight: 700, color: '#5eead4', textTransform: 'uppercase', letterSpacing: 0.8 }}>{h}</div>
+                                <div key={i} style={{ fontSize: 11, fontWeight: 700, color: '#DCE3D5', textTransform: 'uppercase', letterSpacing: 0.8 }}>{h}</div>
                             ))}
                         </div>
 
                         {/* Loading */}
                         {loading && (
                             <div style={{ padding: 56, textAlign: 'center' }}>
-                                <div style={{ width: 36, height: 36, border: '3px solid #e2e8f0', borderTop: '3px solid #0d9488', borderRadius: '50%', animation: 'pr-spin 0.8s linear infinite', margin: '0 auto 14px' }} />
+                                <div style={{ width: 36, height: 36, border: '3px solid #e2e8f0', borderTop: '3px solid #525E46', borderRadius: '50%', animation: 'pr-spin 0.8s linear infinite', margin: '0 auto 14px' }} />
                                 <p style={{ color: '#94a3b8', fontSize: 13, margin: 0 }}>Loading products…</p>
                             </div>
                         )}
@@ -301,7 +301,7 @@ const All = () => {
                                     </div>
 
                                     {/* Price */}
-                                    <div style={{ fontSize: 12, fontWeight: 700, color: '#0d9488' }}>
+                                    <div style={{ fontSize: 12, fontWeight: 700, color: '#525E46' }}>
                                         {product.price && Number(product.price) > 0 ? `Rs. ${Number(product.price).toLocaleString()}` : 'Export Quote'}
                                     </div>
 
@@ -327,7 +327,7 @@ const All = () => {
                                     {/* Actions */}
                                     <div style={{ display: 'flex', gap: 6 }}>
                                         <button className="pr-btn" onClick={() => handleEdit(product)}
-                                            style={{ width: 32, height: 32, background: '#ccfbf1', color: '#0d9488', fontSize: 13 }} title="Edit"><EditOutlined /></button>
+                                            style={{ width: 32, height: 32, background: '#EAEDE6', color: '#525E46', fontSize: 13 }} title="Edit"><EditOutlined /></button>
                                         <button className="pr-btn" onClick={() => setConfirmDelete(product)}
                                             disabled={deletingId === product.id}
                                             style={{ width: 32, height: 32, background: '#fef2f2', color: '#dc2626', fontSize: 13 }} title="Delete">
@@ -349,13 +349,13 @@ const All = () => {
 
             {/* ── Edit Modal ── */}
             {isModalOpen && productToEdit && (
-                <div style={{ position: 'fixed', inset: 0, background: 'rgba(4,47,46,0.6)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, backdropFilter: 'blur(4px)' }}
+                <div style={{ position: 'fixed', inset: 0, background: 'rgba(20,20,20,0.6)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, backdropFilter: 'blur(4px)' }}
                     onClick={e => { if (e.target === e.currentTarget) resetModal() }}>
                     <div style={{ background: '#fff', borderRadius: 24, padding: 0, width: '100%', maxWidth: 600, maxHeight: '90vh', overflowY: 'auto', boxShadow: '0 24px 64px rgba(0,0,0,0.18)', animation: 'pr-in 0.3s ease' }}>
 
                         {/* Modal Header */}
                         <div style={{ padding: '20px 24px 16px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: 14, position: 'sticky', top: 0, background: '#fff', zIndex: 1, borderRadius: '24px 24px 0 0' }}>
-                            <div style={{ width: 42, height: 42, borderRadius: 12, background: '#ccfbf1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, color: '#0d9488', flexShrink: 0 }}><EditOutlined /></div>
+                            <div style={{ width: 42, height: 42, borderRadius: 12, background: '#EAEDE6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, color: '#525E46', flexShrink: 0 }}><EditOutlined /></div>
                             <div style={{ flex: 1 }}>
                                 <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a' }}>Edit Product</div>
                                 <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>{productToEdit.name}</div>
@@ -439,7 +439,7 @@ const All = () => {
                                 Cancel
                             </button>
                             <button className="pr-save" onClick={handleUpdate} disabled={isProcessing}
-                                style={{ flex: 2, padding: '12px', borderRadius: 12, border: 'none', background: isProcessing ? '#99f6e4' : 'linear-gradient(135deg,#0d9488,#042f2e)', color: '#fff', fontSize: 14, fontWeight: 700, cursor: isProcessing ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 4px 14px rgba(13,148,136,0.3)' }}>
+                                style={{ flex: 2, padding: '12px', borderRadius: 12, border: 'none', background: isProcessing ? '#DCE3D5' : 'linear-gradient(135deg,#525E46,#141414)', color: '#fff', fontSize: 14, fontWeight: 700, cursor: isProcessing ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 4px 14px rgba(82,94,70,0.3)' }}>
                                 {isProcessing
                                     ? <><LoadingOutlined style={{ fontSize: 16 }} /> Updating...</>
                                     : <><SaveOutlined /> Update Product</>

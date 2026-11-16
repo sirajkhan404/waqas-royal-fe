@@ -239,12 +239,12 @@ const StoriesManagement = () => {
         <div style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
             {/* Header Banner */}
             <div style={{
-                background: 'linear-gradient(135deg, #042f2e 0%, #0d9488 50%, #115e59 100%)',
+                background: 'linear-gradient(135deg, #141414 0%, #525E46 50%, #6E7D60 100%)',
                 borderRadius: '24px',
                 padding: '32px 36px',
                 color: '#fff',
                 marginBottom: '32px',
-                boxShadow: '0 20px 40px rgba(4, 47, 46, 0.15)',
+                boxShadow: '0 20px 40px rgba(20, 20, 20, 0.15)',
                 display: 'flex',
                 flexWrap: 'wrap',
                 alignItems: 'center',
@@ -324,7 +324,7 @@ const StoriesManagement = () => {
                     onClick={() => { resetForm(); setIsModalOpen(true); }}
                     style={{
                         background: 'linear-gradient(135deg, #f59e0b, #d97706)',
-                        color: '#042f2e',
+                        color: '#141414',
                         border: 'none',
                         padding: '14px 28px',
                         borderRadius: '16px',
@@ -348,7 +348,7 @@ const StoriesManagement = () => {
             {/* Content Section */}
             {isLoading ? (
                 <div style={{ textAlign: 'center', padding: '80px 0' }}>
-                    <LoadingOutlined style={{ fontSize: '42px', color: '#0d9488' }} />
+                    <LoadingOutlined style={{ fontSize: '42px', color: '#525E46' }} />
                     <p style={{ marginTop: '16px', color: '#64748b', fontWeight: 600 }}>Loading stories...</p>
                 </div>
             ) : stories.length === 0 ? (
@@ -364,8 +364,8 @@ const StoriesManagement = () => {
                         width: '80px',
                         height: '80px',
                         borderRadius: '50%',
-                        background: '#f0fdfa',
-                        color: '#0d9488',
+                        background: '#F1F5E9',
+                        color: '#525E46',
                         display: 'inline-flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -383,7 +383,7 @@ const StoriesManagement = () => {
                     <button
                         onClick={() => { resetForm(); setIsModalOpen(true); }}
                         style={{
-                            background: '#0d9488',
+                            background: '#525E46',
                             color: '#fff',
                             border: 'none',
                             padding: '12px 24px',
@@ -419,7 +419,7 @@ const StoriesManagement = () => {
                                     borderRadius: '20px',
                                     overflow: 'hidden',
                                     boxShadow: '0 10px 30px rgba(0,0,0,0.06)',
-                                    border: isExpired ? '1px solid #cbd5e1' : story.isActive ? '2px solid #5eead4' : '1px solid #e2e8f0',
+                                    border: isExpired ? '1px solid #cbd5e1' : story.isActive ? '2px solid #A5B68D' : '1px solid #e2e8f0',
                                     display: 'flex',
                                     flexDirection: 'column',
                                     position: 'relative',
@@ -431,7 +431,7 @@ const StoriesManagement = () => {
                                 <div style={{
                                     height: '340px',
                                     position: 'relative',
-                                    background: '#042f2e',
+                                    background: '#141414',
                                     overflow: 'hidden'
                                 }}>
                                     {isVideo ? (
@@ -514,7 +514,7 @@ const StoriesManagement = () => {
                                             height: '54px',
                                             borderRadius: '50%',
                                             background: 'rgba(255,255,255,0.9)',
-                                            color: '#0d9488',
+                                            color: '#525E46',
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
@@ -534,7 +534,7 @@ const StoriesManagement = () => {
                                             bottom: '12px',
                                             left: '12px',
                                             right: '12px',
-                                            background: 'rgba(4, 47, 46, 0.85)',
+                                            background: 'rgba(20, 20, 20, 0.85)',
                                             backdropFilter: 'blur(10px)',
                                             border: '1px solid rgba(255,255,255,0.15)',
                                             borderRadius: '12px',
@@ -546,7 +546,7 @@ const StoriesManagement = () => {
                                             zIndex: 2
                                         }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflow: 'hidden' }}>
-                                                <ShoppingOutlined style={{ color: '#5eead4', fontSize: '14px' }} />
+                                                <ShoppingOutlined style={{ color: '#DCE3D5', fontSize: '14px' }} />
                                                 <span style={{ fontSize: '12px', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                                                     {story.productName}
                                                 </span>
@@ -636,7 +636,7 @@ const StoriesManagement = () => {
                                             <Switch
                                                 checked={story.isActive}
                                                 onChange={() => handleToggleActive(story.id)}
-                                                style={{ background: story.isActive ? '#0d9488' : '#cbd5e1' }}
+                                                style={{ background: story.isActive ? '#525E46' : '#cbd5e1' }}
                                             />
                                             <span style={{ fontSize: '12px', fontWeight: 600, color: '#475569' }}>
                                                 {story.isActive ? 'Live' : 'Hidden'}
@@ -669,8 +669,8 @@ const StoriesManagement = () => {
                                                     onClick={() => setPreviewStoryIndex(index)}
                                                     style={{
                                                         border: 'none',
-                                                        background: '#f0fdfa',
-                                                        color: '#0d9488',
+                                                        background: '#F1F5E9',
+                                                        color: '#525E46',
                                                         width: '34px',
                                                         height: '34px',
                                                         borderRadius: '8px',
@@ -778,7 +778,7 @@ const StoriesManagement = () => {
                 }}>
                     {viewersLoading ? (
                         <div style={{ textAlign: 'center', padding: '40px 0' }}>
-                            <LoadingOutlined style={{ fontSize: '32px', color: '#0d9488' }} />
+                            <LoadingOutlined style={{ fontSize: '32px', color: '#525E46' }} />
                             <p style={{ marginTop: '12px', color: '#64748b' }}>Loading viewers list...</p>
                         </div>
                     ) : filteredViewers.length === 0 ? (
@@ -810,7 +810,7 @@ const StoriesManagement = () => {
                                             src={viewer.avatar}
                                             icon={!viewer.avatar && <UserOutlined />}
                                             style={{
-                                                backgroundColor: viewer.role === 'superAdmin' ? '#0d9488' : '#0284c7',
+                                                backgroundColor: viewer.role === 'superAdmin' ? '#525E46' : '#0284c7',
                                                 flexShrink: 0
                                             }}
                                             size={42}
@@ -870,8 +870,8 @@ const StoriesManagement = () => {
             {/* Add Story Modal */}
             <Modal
                 title={
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '18px', fontWeight: 800, color: '#042f2e' }}>
-                        <span style={{ background: '#f0fdfa', color: '#0d9488', padding: '6px', borderRadius: '10px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '18px', fontWeight: 800, color: '#141414' }}>
+                        <span style={{ background: '#F1F5E9', color: '#525E46', padding: '6px', borderRadius: '10px' }}>
                             <ThunderboltOutlined />
                         </span>
                         Add New Product Story
@@ -887,21 +887,21 @@ const StoriesManagement = () => {
                 <form onSubmit={handleCreateStory}>
                     {/* 24-Hour Expiry Info Box */}
                     <div style={{
-                        background: '#f0fdfa',
-                        border: '1.5px solid #99f6e4',
+                        background: '#F1F5E9',
+                        border: '1.5px solid #DCE3D5',
                         borderRadius: '12px',
                         padding: '12px 16px',
                         marginBottom: '20px',
                         fontSize: '12.5px',
-                        color: '#0f766e',
+                        color: '#525E46',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '10px',
                         fontWeight: 600
                     }}>
-                        <ClockCircleOutlined style={{ color: '#0d9488', fontSize: '18px', flexShrink: 0 }} />
+                        <ClockCircleOutlined style={{ color: '#525E46', fontSize: '18px', flexShrink: 0 }} />
                         <div>
-                            <span style={{ fontWeight: 800, color: '#042f2e' }}>24-Hour Story Life (1 Din): </span>
+                            <span style={{ fontWeight: 800, color: '#141414' }}>24-Hour Story Life (1 Din): </span>
                             Yeh story publish hote hi 1 din (24 hours) baad automatically expire aur store se khatam ho jayegi.
                         </div>
                     </div>
@@ -919,7 +919,7 @@ const StoriesManagement = () => {
                                 height: '240px',
                                 borderRadius: '16px',
                                 overflow: 'hidden',
-                                background: '#042f2e',
+                                background: '#141414',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center'
@@ -961,8 +961,8 @@ const StoriesManagement = () => {
                             <div
                                 onClick={() => fileInputRef.current?.click()}
                                 style={{
-                                    border: '2px dashed #0d9488',
-                                    background: '#f0fdfa',
+                                    border: '2px dashed #525E46',
+                                    background: '#F1F5E9',
                                     borderRadius: '16px',
                                     padding: '36px 20px',
                                     textAlign: 'center',
@@ -970,7 +970,7 @@ const StoriesManagement = () => {
                                     transition: 'all 0.2s'
                                 }}
                             >
-                                <CloudUploadOutlined style={{ fontSize: '40px', color: '#0d9488', marginBottom: '12px' }} />
+                                <CloudUploadOutlined style={{ fontSize: '40px', color: '#525E46', marginBottom: '12px' }} />
                                 <div style={{ fontWeight: 700, color: '#0f172a', fontSize: '15px' }}>
                                     Click to Browse Image or Video
                                 </div>
@@ -1037,7 +1037,7 @@ const StoriesManagement = () => {
                     {/* Link To Product */}
                     <div style={{ marginBottom: '16px' }}>
                         <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
-                            <ShoppingOutlined style={{ color: '#0d9488', marginRight: '6px' }} />
+                            <ShoppingOutlined style={{ color: '#525E46', marginRight: '6px' }} />
                             Tag / Link a Store Product (Optional)
                         </label>
                         <select
@@ -1136,7 +1136,7 @@ const StoriesManagement = () => {
                                 padding: '12px 28px',
                                 borderRadius: '12px',
                                 border: 'none',
-                                background: 'linear-gradient(135deg, #0d9488, #042f2e)',
+                                background: 'linear-gradient(135deg, #525E46, #141414)',
                                 color: '#fff',
                                 fontWeight: 700,
                                 fontSize: '14px',
@@ -1144,7 +1144,7 @@ const StoriesManagement = () => {
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '8px',
-                                boxShadow: '0 8px 20px rgba(13, 148, 136, 0.3)'
+                                boxShadow: '0 8px 20px rgba(82, 94, 70, 0.3)'
                             }}
                         >
                             {isSubmitting ? (

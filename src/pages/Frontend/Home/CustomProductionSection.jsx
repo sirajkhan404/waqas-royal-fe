@@ -118,30 +118,6 @@ export default function CustomProductionSection() {
             `}</style>
 
             <div className="container">
-                {/* Optional subtle carousel / section indicator dots like in reference */}
-                <div style={{ display: "flex", justifyContent: "center", gap: 7, marginBottom: 28 }}>
-                    <span
-                        style={{
-                            width: 8,
-                            height: 8,
-                            borderRadius: "50%",
-                            background: "#141414",
-                            display: "inline-block",
-                        }}
-                    />
-                    <span
-                        style={{
-                            width: 8,
-                            height: 8,
-                            borderRadius: "50%",
-                            border: "1.5px solid #141414",
-                            background: "transparent",
-                            display: "inline-block",
-                            opacity: 0.5,
-                        }}
-                    />
-                </div>
-
                 <div className="row align-items-center g-5">
                     {/* Left Column: Heading, Subtitle & Action Button */}
                     <div className="col-12 col-lg-6">

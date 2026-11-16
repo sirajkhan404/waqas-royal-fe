@@ -105,11 +105,11 @@ const Users = () => {
                 .usr-row:hover { background: #f1f5f9 !important; }
                 .usr-icon-btn { transition: all 0.2s; border:none; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; border-radius:10px; }
                 .usr-icon-btn:hover { transform:translateY(-2px); }
-                .usr-search:focus { outline:none; border-color:#0d9488 !important; box-shadow:0 0 0 3px rgba(13,148,136,0.15) !important; }
-                .usr-select:focus { outline:none; border-color:#0d9488 !important; box-shadow:0 0 0 3px rgba(13,148,136,0.15) !important; }
-                .usr-modal-input:focus { outline:none; border-color:#0d9488 !important; box-shadow:0 0 0 3px rgba(13,148,136,0.15) !important; }
-                .usr-modal-select:focus { outline:none; border-color:#0d9488 !important; box-shadow:0 0 0 3px rgba(13,148,136,0.15) !important; }
-                .usr-save-btn:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 8px 24px rgba(13,148,136,0.35) !important; }
+                .usr-search:focus { outline:none; border-color:#525E46 !important; box-shadow:0 0 0 3px rgba(82,94,70,0.15) !important; }
+                .usr-select:focus { outline:none; border-color:#525E46 !important; box-shadow:0 0 0 3px rgba(82,94,70,0.15) !important; }
+                .usr-modal-input:focus { outline:none; border-color:#525E46 !important; box-shadow:0 0 0 3px rgba(82,94,70,0.15) !important; }
+                .usr-modal-select:focus { outline:none; border-color:#525E46 !important; box-shadow:0 0 0 3px rgba(82,94,70,0.15) !important; }
+                .usr-save-btn:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 8px 24px rgba(82,94,70,0.35) !important; }
                 .usr-save-btn { transition:all 0.2s; }
 
                 /* Smooth Horizontal Scrollbar for Users Table */
@@ -128,11 +128,11 @@ const Users = () => {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24, flexWrap: 'wrap', gap: 12, animation: 'usr-in 0.4s ease' }}>
                 <div>
                     <h1 style={{ margin: 0, fontSize: 'clamp(20px, 4vw, 26px)', fontWeight: 800, color: '#0f172a', letterSpacing: -0.5, display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <TeamOutlined style={{ color: '#0d9488' }} /> Users Management
+                        <TeamOutlined style={{ color: '#525E46' }} /> Users Management
                     </h1>
                     <p style={{ margin: '4px 0 0', fontSize: 13, color: '#94a3b8' }}>Manage all registered users and their roles</p>
                 </div>
-                <div style={{ fontSize: 13, color: '#0d9488', background: '#ccfbf1', border: '1px solid #99f6e4', borderRadius: 10, padding: '7px 14px', fontWeight: 600 }}>
+                <div style={{ fontSize: 13, color: '#525E46', background: '#EAEDE6', border: '1px solid #DCE3D5', borderRadius: 10, padding: '7px 14px', fontWeight: 600 }}>
                     {documents.length} total users
                 </div>
             </div>
@@ -140,7 +140,7 @@ const Users = () => {
             {/* ── Stat Cards ── */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(140px,1fr))', gap: 14, marginBottom: 24, animation: 'usr-in 0.4s ease 0.05s both' }}>
                 {[
-                    { label: 'Total Users', value: documents.length, icon: <TeamOutlined />, color: '#0d9488', bg: '#ccfbf1' },
+                    { label: 'Total Users', value: documents.length, icon: <TeamOutlined />, color: '#525E46', bg: '#EAEDE6' },
                     { label: 'Super Admins', value: admins, icon: <CrownOutlined />, color: '#d97706', bg: '#fef3c7' },
                     { label: 'Customers', value: customers, icon: <UserOutlined />, color: '#0284c7', bg: '#e0f2fe' },
                     { label: 'Active', value: active, icon: <CheckCircleOutlined />, color: '#16a34a', bg: '#dcfce7' },
@@ -197,16 +197,16 @@ const Users = () => {
                     <div style={{ minWidth: '850px' }}>
 
                         {/* Table Header */}
-                        <div style={{ display: 'grid', gridTemplateColumns: '2fr 2fr 3fr 1.5fr 1.5fr 90px', gap: 10, background: '#042f2e', padding: '14px 20px' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '2fr 2fr 3fr 1.5fr 1.5fr 90px', gap: 10, background: '#141414', padding: '14px 20px' }}>
                             {['Name', 'UID', 'Email', 'Role', 'Status', 'Actions'].map((h, i) => (
-                                <div key={i} style={{ fontSize: 11, fontWeight: 700, color: '#5eead4', textTransform: 'uppercase', letterSpacing: 1 }}>{h}</div>
+                                <div key={i} style={{ fontSize: 11, fontWeight: 700, color: '#DCE3D5', textTransform: 'uppercase', letterSpacing: 1 }}>{h}</div>
                             ))}
                         </div>
 
                         {/* Loading */}
                         {isLoading && (
                             <div style={{ padding: 48, textAlign: 'center' }}>
-                                <div style={{ width: 36, height: 36, border: '3px solid #e2e8f0', borderTop: '3px solid #0d9488', borderRadius: '50%', animation: 'usr-spin 0.8s linear infinite', margin: '0 auto 12px' }} />
+                                <div style={{ width: 36, height: 36, border: '3px solid #e2e8f0', borderTop: '3px solid #525E46', borderRadius: '50%', animation: 'usr-spin 0.8s linear infinite', margin: '0 auto 12px' }} />
                                 <p style={{ color: '#94a3b8', fontSize: 13 }}>Loading users…</p>
                             </div>
                         )}
@@ -290,7 +290,7 @@ const Users = () => {
                                     {/* Actions */}
                                     <div style={{ display: 'flex', gap: 6 }}>
                                         <button className="usr-icon-btn" onClick={() => handleEdit(user)}
-                                            style={{ width: 32, height: 32, background: '#ccfbf1', color: '#0d9488', fontSize: 13, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+                                            style={{ width: 32, height: 32, background: '#EAEDE6', color: '#525E46', fontSize: 13, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
                                             title="Edit user">
                                             <EditOutlined />
                                         </button>
@@ -309,11 +309,11 @@ const Users = () => {
 
             {/* ── Edit Modal ── */}
             {modalOpen && userToEdit && (
-                <div style={{ position: 'fixed', inset: 0, background: 'rgba(4,47,46,0.6)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, backdropFilter: 'blur(4px)' }}
+                <div style={{ position: 'fixed', inset: 0, background: 'rgba(20,20,20,0.6)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, backdropFilter: 'blur(4px)' }}
                     onClick={e => { if (e.target === e.currentTarget) setModalOpen(false) }}>
                     <div style={{ background: '#fff', borderRadius: 24, padding: 24, width: '100%', maxWidth: 440, boxShadow: '0 24px 64px rgba(0,0,0,0.18)', animation: 'usr-in 0.3s ease' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
-                            <div style={{ width: 44, height: 44, borderRadius: 14, background: '#ccfbf1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0, color: '#0d9488' }}><EditOutlined /></div>
+                            <div style={{ width: 44, height: 44, borderRadius: 14, background: '#EAEDE6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0, color: '#525E46' }}><EditOutlined /></div>
                             <div style={{ flex: 1, minWidth: 0 }}>
                                 <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a' }}>Edit User</div>
                                 <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{userToEdit.email}</div>
@@ -362,7 +362,7 @@ const Users = () => {
                                 Cancel
                             </button>
                             <button className="usr-save-btn" onClick={handleUpdate} disabled={isProcessing}
-                                style={{ flex: 2, padding: '12px', borderRadius: 12, border: 'none', background: isProcessing ? '#99f6e4' : 'linear-gradient(135deg,#0d9488,#042f2e)', color: '#fff', fontSize: 14, fontWeight: 700, cursor: isProcessing ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 4px 14px rgba(13,148,136,0.3)' }}>
+                                style={{ flex: 2, padding: '12px', borderRadius: 12, border: 'none', background: isProcessing ? '#DCE3D5' : 'linear-gradient(135deg,#525E46,#141414)', color: '#fff', fontSize: 14, fontWeight: 700, cursor: isProcessing ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 4px 14px rgba(82,94,70,0.3)' }}>
                                 {isProcessing
                                     ? <><span style={{ width: 16, height: 16, border: '2px solid rgba(255,255,255,0.4)', borderTop: '2px solid #fff', borderRadius: '50%', animation: 'usr-spin 0.8s linear infinite', display: 'inline-block' }} />Saving...</>
                                     : <><SaveOutlined /> Save Changes</>
