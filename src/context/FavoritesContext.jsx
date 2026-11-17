@@ -29,32 +29,30 @@ export const FavoritesProvider = ({ children }) => {
         const id = product.id || product._id;
         if (!id) return;
 
-        setFavorites((prev) => {
-            const exists = prev.some((item) => (item.id || item._id) === id);
-            if (exists) {
-                if (window.toastify) {
-                    window.toastify(`Removed "${product.name}" from favorites`, "info");
-                }
-                return prev.filter((item) => (item.id || item._id) !== id);
-            } else {
-                if (window.toastify) {
-                    window.toastify(`Added "${product.name}" to favorites ❤️`, "success");
-                }
-                return [
-                    ...prev,
-                    {
-                        id: product.id || product._id,
-                        _id: product._id || product.id,
-                        name: product.name,
-                        price: Number(product.price) || 0,
-                        imageURL: product.imageURL || "",
-                        category: product.category || "",
-                        description: product.description || "",
-                        stock: product.stock,
-                    },
-                ];
+        const exists = favorites.some((item) => (item.id || item._id) === id);
+        if (exists) {
+            setFavorites((prev) => prev.filter((item) => (item.id || item._id) !== id));
+            if (window.toastify) {
+                window.toastify(`Removed "${product.name}" from favorites`, "info");
             }
-        });
+        } else {
+            setFavorites((prev) => [
+                ...prev,
+                {
+                    id: product.id || product._id,
+                    _id: product._id || product.id,
+                    name: product.name,
+                    price: Number(product.price) || 0,
+                    imageURL: product.imageURL || "",
+                    category: product.category || "",
+                    description: product.description || "",
+                    stock: product.stock,
+                },
+            ]);
+            if (window.toastify) {
+                window.toastify(`Added "${product.name}" to favorites ❤️`, "success");
+            }
+        }
     };
 
     const removeFavorite = (productId) => {

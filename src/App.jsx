@@ -10,7 +10,14 @@ import { useEffect } from "react";
 const GlobalMessageSetter = () => {
   const { message } = AntdApp.useApp();
   useEffect(() => {
-    window.toastify = (msg, type) => message[type](msg);
+    window.toastify = (msg, type = "info") => {
+      // Defer to next tick so it never triggers during React render cycles
+      setTimeout(() => {
+        if (message && typeof message[type] === "function") {
+          message[type](msg);
+        }
+      }, 0);
+    };
   }, [message]);
   return null;
 }
