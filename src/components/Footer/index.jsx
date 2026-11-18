@@ -50,52 +50,79 @@ const Footer = () => {
         >
             {/* ── Top Highlights Strip ── */}
             <div
-                className="py-4"
+                className="py-3 py-md-4"
                 style={{
                     background: '#FFFFFF',
                     borderBottom: '1px solid #E5E5E0'
                 }}
             >
-                <div className="container py-1">
-                    <div className="row g-3 text-center text-md-start">
+                <div className="container px-3 px-sm-4">
+                    <div className="row g-2 g-sm-3">
                         {[
                             {
-                                icon: <RocketFilled style={{ color: '#525E46', fontSize: '20px' }} />,
+                                icon: <RocketFilled style={{ color: '#525E46', fontSize: '18px' }} />,
                                 title: 'Worldwide Export',
                                 desc: 'Air & sea freight support'
                             },
                             {
-                                icon: <SafetyCertificateFilled style={{ color: '#525E46', fontSize: '20px' }} />,
+                                icon: <SafetyCertificateFilled style={{ color: '#525E46', fontSize: '18px' }} />,
                                 title: '100% Secure Checkout',
                                 desc: 'Protected by SSL encryption'
                             },
                             {
-                                icon: <SyncOutlined style={{ color: '#525E46', fontSize: '19px' }} />,
+                                icon: <SyncOutlined style={{ color: '#525E46', fontSize: '17px' }} />,
                                 title: 'Custom OEM Orders',
                                 desc: 'Private label manufacturing'
                             },
                             {
-                                icon: <CustomerServiceFilled style={{ color: '#525E46', fontSize: '20px' }} />,
+                                icon: <CustomerServiceFilled style={{ color: '#525E46', fontSize: '18px' }} />,
                                 title: '24/7 Dedicated Support',
                                 desc: 'Always ready to assist you'
                             },
                         ].map((item, idx) => (
-                            <div key={idx} className="col-12 col-sm-6 col-lg-3">
-                                <div className="d-flex align-items-center justify-content-center justify-content-md-start gap-3 p-2">
+                            <div key={idx} className="col-6 col-lg-3">
+                                <div
+                                    className="d-flex align-items-center gap-2 gap-sm-3 p-2 p-sm-3 rounded-3 h-100"
+                                    style={{
+                                        background: '#FBFBFA',
+                                        border: '1px solid #ECECE8',
+                                        transition: 'all 0.2s ease',
+                                    }}
+                                >
                                     <div
                                         className="d-flex align-items-center justify-content-center rounded-3 flex-shrink-0"
                                         style={{
-                                            width: '44px',
-                                            height: '44px',
+                                            width: '38px',
+                                            height: '38px',
                                             background: '#EAEDE6',
                                             border: '1px solid #DCE1D6',
                                         }}
                                     >
                                         {item.icon}
                                     </div>
-                                    <div>
-                                        <h6 className="fw-bold mb-0 fs-6" style={{ color: '#141414' }}>{item.title}</h6>
-                                        <p className="mb-0" style={{ fontSize: '12px', color: '#6A6A64' }}>{item.desc}</p>
+                                    <div className="overflow-hidden">
+                                        <h6
+                                            className="fw-bold mb-0 text-truncate"
+                                            style={{
+                                                color: '#141414',
+                                                fontSize: '13px',
+                                                lineHeight: 1.25
+                                            }}
+                                            title={item.title}
+                                        >
+                                            {item.title}
+                                        </h6>
+                                        <p
+                                            className="mb-0 text-truncate"
+                                            style={{
+                                                fontSize: '11px',
+                                                color: '#6A6A64',
+                                                lineHeight: 1.2
+                                            }}
+                                            title={item.desc}
+                                        >
+                                            {item.desc}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -348,10 +375,11 @@ const Footer = () => {
 
             {/* ── Bottom Bar ── */}
             <div
-                className="py-3"
+                className="py-3 pb-5 pb-md-3"
                 style={{
                     background: '#EFEFEA',
-                    borderTop: '1px solid #E5E5E0'
+                    borderTop: '1px solid #E5E5E0',
+                    paddingBottom: 'calc(1.8rem + env(safe-area-inset-bottom, 0px))'
                 }}
             >
                 <div className="container">

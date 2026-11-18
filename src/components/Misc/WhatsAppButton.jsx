@@ -11,32 +11,50 @@ const WhatsAppButton = () => {
 
     return (
         <>
+            <style>{`
+                .wr-whatsapp-float {
+                    bottom: 24px;
+                    right: 24px;
+                    width: 56px;
+                    height: 56px;
+                }
+                .wr-whatsapp-float svg {
+                    width: 30px;
+                    height: 30px;
+                }
+                @media (max-width: 576px) {
+                    .wr-whatsapp-float {
+                        bottom: 18px;
+                        right: 18px;
+                        width: 48px;
+                        height: 48px;
+                    }
+                    .wr-whatsapp-float svg {
+                        width: 25px;
+                        height: 25px;
+                    }
+                }
+            `}</style>
             {/* WhatsApp Floating Button */}
             <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="position-fixed d-flex align-items-center justify-content-center text-white text-decoration-none rounded-circle shadow-lg"
+                className="position-fixed d-flex align-items-center justify-content-center text-white text-decoration-none rounded-circle shadow-lg wr-whatsapp-float"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 aria-label="Chat on WhatsApp"
                 title="Chat with us on WhatsApp"
                 style={{
-                    bottom: '28px',
-                    right: '28px',
-                    width: '60px',
-                    height: '60px',
                     backgroundColor: isHovered ? '#20ba5a' : '#25D366',
                     zIndex: 1040,
                     transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-                    transform: isHovered ? 'scale(1.1) translateY(-3px)' : 'scale(1)',
+                    transform: isHovered ? 'scale(1.08) translateY(-3px)' : 'scale(1)',
                     boxShadow: isHovered ? '0 10px 25px rgba(37, 211, 102, 0.5)' : '0 6px 20px rgba(37, 211, 102, 0.4)'
                 }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="32"
-                    height="32"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                 >
