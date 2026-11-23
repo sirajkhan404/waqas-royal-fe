@@ -10,8 +10,17 @@ import {
     ArrowLeftOutlined,
     SafetyCertificateFilled,
     ShoppingFilled,
-    UserAddOutlined
+    UserAddOutlined,
+    CheckCircleFilled,
+    CloseCircleFilled
 } from "@ant-design/icons"
+
+const DISPOSABLE_DOMAINS = new Set([
+    "10minutemail.com", "10minutemail.net", "tempmail.com", "temp-mail.org", "temp-mail.io",
+    "guerrillamail.com", "guerrillamail.net", "mailinator.com", "throwawaymail.com",
+    "yopmail.com", "yopmail.fr", "sharklasers.com", "dispostable.com", "trashmail.com",
+    "fakeinbox.com", "fakemailgenerator.com", "emailondeck.com", "mytemp.email", "nada.ltd"
+]);
 
 const initialState = { name: "", email: "", password: "", confirmPassword: "" }
 
@@ -32,11 +41,11 @@ const Register = () => {
         let score = 0
         if (pass.length >= 6) score++
         if (pass.length >= 8) score++
-        if (/[A-Z]/.test(pass) && /[0-9]/.test(pass)) score++
+        if (/[A-Za-z]/.test(pass) && /[0-9]/.test(pass)) score++
         if (/[^A-Za-z0-9]/.test(pass)) score++
 
         if (score <= 1) return { level: 1, label: "Weak", color: "#ef4444" }
-        if (score <= 2) return { level: 2, label: "Fair", color: "#f59e0b" }
+        if (score === 2) return { level: 2, label: "Fair", color: "#f59e0b" }
         if (score === 3) return { level: 3, label: "Good", color: "#3b82f6" }
         return { level: 4, label: "Strong", color: "#10b981" }
     }
@@ -48,13 +57,32 @@ const Register = () => {
         let { name, email, password, confirmPassword } = state
 
         const fullName = name.trim()
-        if (fullName.length < 3) return window.toastify("Please enter your full name (minimum 3 characters)", "warning")
-        if (!email || !email.includes("@")) return window.toastify("Please enter a valid email address", "warning")
-        if (password.length < 6) return window.toastify("Password must be at least 6 characters", "warning")
-        if (confirmPassword !== password) return window.toastify("Passwords do not match. Please re-enter.", "warning")
-        if (!agreeTerms) return window.toastify("Please agree to the Terms & Privacy Policy to proceed", "warning")
+        if (fullName.length < 3) {
+            return window.toastify("Please enter your full name (minimum 3 characters)", "warning")
+        }
 
-        const user = { fullName, email: email.trim().toLowerCase(), password }
+        const cleanEmail = email.trim().toLowerCase()
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        if (!cleanEmail || !emailRegex.test(cleanEmail)) {
+            return window.toastify("Please enter a valid email address (e.g. name@example.com)", "warning")
+        }
+
+        const domain = cleanEmail.split("@")[1]
+        if (DISPOSABLE_DOMAINS.has(domain)) {
+            return window.toastify("Temporary / disposable emails are not allowed. Please enter your real email.", "warning")
+        }
+
+        if (!password || password.length < 6) {
+            return window.toastify("Password must be at least 6 characters", "warning")
+        }
+        if (confirmPassword !== password) {
+            return window.toastify("Passwords do not match. Please re-enter.", "warning")
+        }
+        if (!agreeTerms) {
+            return window.toastify("Please agree to the Terms & Privacy Policy to proceed", "warning")
+        }
+
+        const user = { fullName, email: cleanEmail, password }
         setIsProcessing(true)
 
         axios.post(`${window.api}/api/auth/register`, user)
@@ -330,7 +358,7 @@ const Register = () => {
                                 id="reg-email"
                                 type="email"
                                 name="email"
-                                placeholder="name@example.com"
+                                placeholder="name@example.com (Real email required)"
                                 value={state.email}
                                 onChange={handleChange}
                                 required
@@ -360,6 +388,9 @@ const Register = () => {
                                 }}
                             />
                         </div>
+                        <div style={{ fontSize: "11px", color: "#64748b", marginTop: "4px", paddingLeft: "4px" }}>
+                            Only real active emails are accepted (Gmail, Yahoo, Outlook, etc.).
+                        </div>
                     </div>
 
                     {/* Password and Confirm Password Row */}
@@ -375,7 +406,7 @@ const Register = () => {
                                     marginBottom: "6px"
                                 }}
                             >
-                                Password
+                                Real Password
                             </label>
                             <div style={{ position: "relative" }}>
                                 <span
@@ -395,7 +426,7 @@ const Register = () => {
                                     id="reg-password"
                                     type={showPassword ? "text" : "password"}
                                     name="password"
-                                    placeholder="Min 6 chars"
+                                    placeholder="Min 6 characters"
                                     value={state.password}
                                     onChange={handleChange}
                                     required

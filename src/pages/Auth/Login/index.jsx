@@ -41,7 +41,14 @@ const Login = () => {
             return
         }
 
-        const userData = { email: email.trim().toLowerCase(), password }
+        const cleanEmail = email.trim().toLowerCase()
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        if (!emailRegex.test(cleanEmail)) {
+            window.toastify("Please enter a valid real email address", "warning")
+            return
+        }
+
+        const userData = { email: cleanEmail, password }
         setIsProcessing(true)
 
         axios.post(`${window.api}/api/auth/login`, userData)
@@ -49,7 +56,7 @@ const Login = () => {
                 const { status, data } = res
                 if (status === 200) {
                     if (rememberMe) {
-                        localStorage.setItem("mystore_remember_email", email.trim().toLowerCase())
+                        localStorage.setItem("mystore_remember_email", cleanEmail)
                     } else {
                         localStorage.removeItem("mystore_remember_email")
                     }
@@ -58,12 +65,12 @@ const Login = () => {
                     window.toastify("Welcome back! Login successful", "success")
                     navigate("/dashboard")
                 } else {
-                    window.toastify(data?.message || "Invalid credentials", "error")
+                    window.toastify(data?.message || "Invalid email or password", "error")
                 }
             })
             .catch(error => {
                 console.error(error)
-                window.toastify(error?.response?.data?.message || "Internal server error", "error")
+                window.toastify(error?.response?.data?.message || "Invalid email or password. Please try again.", "error")
             })
             .finally(() => {
                 setIsProcessing(false)
