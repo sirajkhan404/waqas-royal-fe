@@ -4,4 +4,7 @@ window.isValidEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 window.toastify = (msg, type) => console.log(msg, type); // Overridden in App component to use context-aware messages
 
-window.api = import.meta.env.VITE_API_URL || "http://localhost:8000";
+// Automatically select correct API: localhost in local dev, live production URL in production
+const defaultApi = import.meta.env.DEV ? "http://localhost:8000" : "https://waqas-royal-ser.vercel.app";
+const rawApi = import.meta.env.VITE_API_URL || defaultApi;
+window.api = String(rawApi).trim().replace(/\/+$/, "");
