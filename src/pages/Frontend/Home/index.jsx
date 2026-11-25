@@ -246,51 +246,88 @@ const Home = () => {
                                 <FadeIn delay={idx * 0.06}>
                                     <Link to={cat.path} className="text-decoration-none">
                                         <div
-                                            className="rounded-4 overflow-hidden bg-white h-100 d-flex flex-column"
+                                            className="overflow-hidden bg-white h-100 d-flex flex-column align-items-center text-center p-4"
                                             style={{
+                                                borderRadius: "28px",
                                                 border: `1px solid ${T.border}`,
                                                 transition: "transform 0.25s ease, box-shadow 0.25s ease",
-                                                boxShadow: "0 2px 12px rgba(20,20,20,0.03)",
+                                                boxShadow: "0 4px 16px rgba(20,20,20,0.04)",
                                             }}
                                             onMouseEnter={(e) => {
-                                                e.currentTarget.style.transform = "translateY(-4px)";
-                                                e.currentTarget.style.boxShadow = "0 16px 32px rgba(20,20,20,0.08)";
+                                                e.currentTarget.style.transform = "translateY(-6px)";
+                                                e.currentTarget.style.boxShadow = "0 18px 36px rgba(20,20,20,0.08)";
                                             }}
                                             onMouseLeave={(e) => {
                                                 e.currentTarget.style.transform = "none";
-                                                e.currentTarget.style.boxShadow = "0 2px 12px rgba(20,20,20,0.03)";
+                                                e.currentTarget.style.boxShadow = "0 4px 16px rgba(20,20,20,0.04)";
                                             }}
                                         >
-                                            <div style={{ height: 220, background: T.surfaceMuted, position: "relative", overflow: "hidden" }}>
-                                                <img
-                                                    src={cat.image}
-                                                    alt={cat.name}
-                                                    style={{ width: "100%", height: "100%", objectFit: "contain", padding: "14px" }}
-                                                />
-                                                <span
+                                            {/* 50% Circular Image Frame with Gold & Dark Concentric Rings */}
+                                            <div className="my-3 position-relative d-flex align-items-center justify-content-center">
+                                                <div
                                                     style={{
-                                                        position: "absolute",
-                                                        top: 12,
-                                                        left: 12,
-                                                        background: T.surface,
+                                                        width: 200,
+                                                        height: 200,
+                                                        borderRadius: "50%",
+                                                        padding: "5px",
+                                                        background: "#FFFFFF",
+                                                        boxShadow: "0 0 0 4px #141414, 0 0 0 8px #C5A059, 0 0 0 12px #141414, 0 12px 28px rgba(0,0,0,0.12)",
+                                                        overflow: "hidden",
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        justifyContent: "center",
+                                                        transition: "transform 0.3s ease",
+                                                    }}
+                                                >
+                                                    <img
+                                                        src={cat.image}
+                                                        alt={cat.name}
+                                                        style={{
+                                                            width: "100%",
+                                                            height: "100%",
+                                                            borderRadius: "50%",
+                                                            objectFit: "cover",
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="pt-2 d-flex flex-column flex-grow-1 align-items-center">
+                                                <span
+                                                    className="mb-2"
+                                                    style={{
+                                                        background: T.surfaceMuted,
                                                         color: T.ink,
                                                         border: `1px solid ${T.border}`,
-                                                        fontSize: "10px",
+                                                        fontSize: "10.5px",
                                                         fontWeight: 700,
-                                                        padding: "4px 10px",
+                                                        padding: "4px 12px",
                                                         borderRadius: "999px",
-                                                        letterSpacing: "0.5px",
+                                                        letterSpacing: "0.6px",
+                                                        textTransform: "uppercase",
                                                     }}
                                                 >
                                                     {cat.badge}
                                                 </span>
-                                            </div>
-                                            <div className="p-4 d-flex flex-column flex-grow-1">
-                                                <h4 style={{ fontWeight: 800, color: T.ink, marginBottom: 6, fontSize: "1.2rem" }}>{cat.name}</h4>
-                                                <p style={{ color: T.muted, fontSize: 13.5, marginBottom: 16, flexGrow: 1 }}>{cat.tagline}</p>
-                                                <div style={{ fontWeight: 700, fontSize: 13.5, color: T.sageDark }}>
+                                                <h4 style={{ fontWeight: 800, color: T.ink, marginBottom: 6, fontSize: "1.25rem" }}>
+                                                    {cat.name}
+                                                </h4>
+                                                <p style={{ color: T.muted, fontSize: 13.5, marginBottom: 18, flexGrow: 1, maxWidth: 280 }}>
+                                                    {cat.tagline}
+                                                </p>
+                                                <span
+                                                    className="btn btn-sm rounded-pill fw-semibold px-4"
+                                                    style={{
+                                                        background: T.sageDark,
+                                                        color: "#FFFFFF",
+                                                        fontSize: 13,
+                                                        padding: "8px 22px",
+                                                        border: "none",
+                                                        transition: "background 0.2s ease",
+                                                    }}
+                                                >
                                                     Shop {cat.name} →
-                                                </div>
+                                                </span>
                                             </div>
                                         </div>
                                     </Link>

@@ -232,11 +232,11 @@ const Navbar = () => {
                             {/* Right: Quick Contacts & Close */}
                             <div className="d-flex align-items-center gap-3 flex-shrink-0">
                                 <a
-                                    href="tel:+923466407536"
+                                    href="tel:+92 370 5326459"
                                     className="wr-top-link d-none d-md-inline-flex align-items-center gap-1"
                                 >
                                     <PhoneOutlined style={{ color: '#525E46', fontSize: '11px' }} />
-                                    <span>+92 346 6407536</span>
+                                    <span>+92 370 5326459</span>
                                 </a>
 
                                 <span className="d-none d-lg-inline" style={{ color: '#D5D5CE' }}>|</span>
@@ -668,9 +668,8 @@ const Navbar = () => {
 
             {/* ── Mobile Slide-Over Backdrop ── */}
             <div
-                className={`position-fixed top-0 start-0 w-100 h-100 ${
-                    sidebarOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-                }`}
+                className={`position-fixed top-0 start-0 w-100 h-100 ${sidebarOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+                    }`}
                 style={{
                     zIndex: 9998,
                     background: 'rgba(20, 20, 20, 0.55)',
