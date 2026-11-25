@@ -206,9 +206,9 @@ const CategoryPage = ({ categoryKey }) => {
                             )}
                         </div>
                     ) : (
-                        <div className="row g-4">
+                        <div className="row g-2 g-sm-3 g-md-4">
                             {filteredProducts.map((product) => (
-                                <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={product._id || product.id}>
+                                <div className="col-6 col-md-4 col-lg-3" key={product._id || product.id}>
                                     <ProductCard
                                         product={product}
                                         addedId={addedId}

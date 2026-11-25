@@ -52,6 +52,34 @@ const FadeIn = ({ children, delay = 0, from = "up" }) => {
     );
 };
 
+/* ── Circular Collections (Sports Wears, Street Wears, Active Wears, Outer Wears) ── */
+const CIRCULAR_COLLECTIONS = [
+    {
+        title: "Sports Wears",
+        path: "/sport-wear",
+        image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=700&q=80",
+        fallback: "/images/kit.jpg",
+    },
+    {
+        title: "Street Wears",
+        path: "/fashion-wear",
+        image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=700&q=80",
+        fallback: "/images/hoodie.jpg",
+    },
+    {
+        title: "Active Wears",
+        path: "/gym-wear",
+        image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=700&q=80",
+        fallback: "/images/gym-wear.jpg",
+    },
+    {
+        title: "Outer Wears",
+        path: "/fashion-wear",
+        image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=700&q=80",
+        fallback: "/images/work-set.jpg",
+    },
+];
+
 /* ── Home Page ──────────────────────────────────────── */
 const Home = () => {
     const [products, setProducts] = useState([]);
@@ -204,130 +232,91 @@ const Home = () => {
             {/* ══ STORIES BAR ════════════════════════════════ */}
             <StoriesBar />
 
-            {/* ══ EXPORT DIVISIONS OVERVIEW (3 EDITORIAL CARDS) ═════════ */}
-            <section style={{ background: T.canvas, padding: "60px 0 44px" }}>
+            {/* ══ EXPORT DIVISIONS OVERVIEW (CIRCULAR CATEGORY COLLECTIONS) ═════════ */}
+            <section style={{ background: T.canvas, padding: "50px 0 54px" }}>
                 <div className="container">
                     <FadeIn>
-                        <div className="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-4">
-                            <div>
-                                <span
-                                    style={{
-                                        color: T.sageDark,
-                                        fontSize: 11.5,
-                                        fontWeight: 700,
-                                        letterSpacing: "1.4px",
-                                        textTransform: "uppercase",
-                                        display: "block",
-                                        marginBottom: 6,
-                                    }}
-                                >
-                                    Waqas Royal Divisions
-                                </span>
-                                <h2 style={{ fontWeight: 800, color: T.ink, fontSize: "2rem", marginBottom: 4, letterSpacing: "-0.5px" }}>
-                                    Explore Our Collections
-                                </h2>
-                                <p style={{ color: T.muted, fontSize: 14.5, margin: 0 }}>
-                                    Dedicated apparel lines manufactured for global export standards.
-                                </p>
-                            </div>
-                            <Link
-                                to="/sport-wear"
-                                className="btn rounded-pill fw-semibold px-4"
-                                style={{ border: `1px solid ${T.ink}`, color: T.ink, fontSize: 13.5, background: T.surface }}
-                            >
-                                Explore Sport Wear →
-                            </Link>
+                        <div className="text-center mb-4">
+                            <p style={{ color: T.muted, fontSize: "14.5px", margin: 0, letterSpacing: "0.2px" }}>
+                                Lots of new products and product collections
+                            </p>
                         </div>
                     </FadeIn>
 
-                    <div className="row g-4">
-                        {ROYAL_CATEGORIES.map((cat, idx) => (
-                            <div key={cat.key} className="col-12 col-md-4">
-                                <FadeIn delay={idx * 0.06}>
-                                    <Link to={cat.path} className="text-decoration-none">
+                    <div className="row g-3 g-md-4 justify-content-center">
+                        {CIRCULAR_COLLECTIONS.map((item, idx) => (
+                            <div key={idx} className="col-6 col-lg-3">
+                                <FadeIn delay={idx * 0.08}>
+                                    <Link to={item.path} className="text-decoration-none d-block">
                                         <div
-                                            className="overflow-hidden bg-white h-100 d-flex flex-column align-items-center text-center p-4"
+                                            className="position-relative overflow-hidden w-100"
                                             style={{
-                                                borderRadius: "28px",
-                                                border: `1px solid ${T.border}`,
-                                                transition: "transform 0.25s ease, box-shadow 0.25s ease",
-                                                boxShadow: "0 4px 16px rgba(20,20,20,0.04)",
+                                                borderRadius: "50%",
+                                                aspectRatio: "1 / 1",
+                                                boxShadow: "0 8px 24px rgba(20,20,20,0.08)",
+                                                transition: "transform 0.35s ease, box-shadow 0.35s ease",
+                                                cursor: "pointer",
                                             }}
                                             onMouseEnter={(e) => {
-                                                e.currentTarget.style.transform = "translateY(-6px)";
-                                                e.currentTarget.style.boxShadow = "0 18px 36px rgba(20,20,20,0.08)";
+                                                e.currentTarget.style.transform = "scale(1.03)";
+                                                e.currentTarget.style.boxShadow = "0 18px 38px rgba(20,20,20,0.18)";
+                                                const img = e.currentTarget.querySelector("img");
+                                                if (img) img.style.transform = "scale(1.1)";
+                                                const pill = e.currentTarget.querySelector(".pill-label");
+                                                if (pill) pill.style.transform = "translate(-50%, -50%) scale(1.06)";
                                             }}
                                             onMouseLeave={(e) => {
                                                 e.currentTarget.style.transform = "none";
-                                                e.currentTarget.style.boxShadow = "0 4px 16px rgba(20,20,20,0.04)";
+                                                e.currentTarget.style.boxShadow = "0 8px 24px rgba(20,20,20,0.08)";
+                                                const img = e.currentTarget.querySelector("img");
+                                                if (img) img.style.transform = "scale(1)";
+                                                const pill = e.currentTarget.querySelector(".pill-label");
+                                                if (pill) pill.style.transform = "translate(-50%, -50%)";
                                             }}
                                         >
-                                            {/* 50% Circular Image Frame with Gold & Dark Concentric Rings */}
-                                            <div className="my-3 position-relative d-flex align-items-center justify-content-center">
-                                                <div
-                                                    style={{
-                                                        width: 200,
-                                                        height: 200,
-                                                        borderRadius: "50%",
-                                                        padding: "5px",
-                                                        background: "#FFFFFF",
-                                                        boxShadow: "0 0 0 4px #141414, 0 0 0 8px #C5A059, 0 0 0 12px #141414, 0 12px 28px rgba(0,0,0,0.12)",
-                                                        overflow: "hidden",
-                                                        display: "flex",
-                                                        alignItems: "center",
-                                                        justifyContent: "center",
-                                                        transition: "transform 0.3s ease",
-                                                    }}
-                                                >
-                                                    <img
-                                                        src={cat.image}
-                                                        alt={cat.name}
-                                                        style={{
-                                                            width: "100%",
-                                                            height: "100%",
-                                                            borderRadius: "50%",
-                                                            objectFit: "cover",
-                                                        }}
-                                                    />
-                                                </div>
-                                            </div>
+                                            <img
+                                                src={item.image}
+                                                alt={item.title}
+                                                onError={(e) => {
+                                                    e.target.onerror = null;
+                                                    e.target.src = item.fallback;
+                                                }}
+                                                style={{
+                                                    width: "100%",
+                                                    height: "100%",
+                                                    objectFit: "cover",
+                                                    transition: "transform 0.5s ease",
+                                                }}
+                                            />
 
-                                            <div className="pt-2 d-flex flex-column flex-grow-1 align-items-center">
-                                                <span
-                                                    className="mb-2"
-                                                    style={{
-                                                        background: T.surfaceMuted,
-                                                        color: T.ink,
-                                                        border: `1px solid ${T.border}`,
-                                                        fontSize: "10.5px",
-                                                        fontWeight: 700,
-                                                        padding: "4px 12px",
-                                                        borderRadius: "999px",
-                                                        letterSpacing: "0.6px",
-                                                        textTransform: "uppercase",
-                                                    }}
-                                                >
-                                                    {cat.badge}
-                                                </span>
-                                                <h4 style={{ fontWeight: 800, color: T.ink, marginBottom: 6, fontSize: "1.25rem" }}>
-                                                    {cat.name}
-                                                </h4>
-                                                <p style={{ color: T.muted, fontSize: 13.5, marginBottom: 18, flexGrow: 1, maxWidth: 280 }}>
-                                                    {cat.tagline}
-                                                </p>
-                                                <span
-                                                    className="btn btn-sm rounded-pill fw-semibold px-4"
-                                                    style={{
-                                                        background: T.sageDark,
-                                                        color: "#FFFFFF",
-                                                        fontSize: 13,
-                                                        padding: "8px 22px",
-                                                        border: "none",
-                                                        transition: "background 0.2s ease",
-                                                    }}
-                                                >
-                                                    Shop {cat.name} →
-                                                </span>
+                                            {/* Subtle vignette for contrast */}
+                                            <div
+                                                className="position-absolute top-0 start-0 w-100 h-100"
+                                                style={{
+                                                    background: "rgba(0, 0, 0, 0.12)",
+                                                    pointerEvents: "none",
+                                                }}
+                                            />
+
+                                            {/* Centered White Pill Badge */}
+                                            <div
+                                                className="pill-label position-absolute top-50 start-50"
+                                                style={{
+                                                    transform: "translate(-50%, -50%)",
+                                                    background: "#FFFFFF",
+                                                    color: "#141414",
+                                                    padding: "10px 22px",
+                                                    borderRadius: "999px",
+                                                    fontWeight: 700,
+                                                    fontSize: "14.5px",
+                                                    whiteSpace: "nowrap",
+                                                    boxShadow: "0 6px 18px rgba(0,0,0,0.22)",
+                                                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                                                    letterSpacing: "0.2px",
+                                                    pointerEvents: "none",
+                                                }}
+                                            >
+                                                {item.title}
                                             </div>
                                         </div>
                                     </Link>
@@ -415,9 +404,9 @@ const Home = () => {
                                     </p>
                                 </div>
                             ) : (
-                                <div className="row g-4">
+                                <div className="row g-2 g-sm-3 g-md-4">
                                     {sectionProducts.map((p, i) => (
-                                        <div key={p._id || p.id} className="col-12 col-sm-6 col-md-4 col-xl-3">
+                                        <div key={p._id || p.id} className="col-6 col-md-4 col-xl-3">
                                             <FadeIn delay={i * 0.05}>
                                                 <ProductCard
                                                     product={p}

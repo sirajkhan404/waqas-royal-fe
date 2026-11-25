@@ -41,7 +41,7 @@ const ProductCard = ({ product, addedId, onAdd }) => {
             }}
         >
             {/* Image Frame */}
-            <div style={{ height: "235px", overflow: "hidden", position: "relative", background: T.surfaceMuted }}>
+            <div style={{ height: "clamp(165px, 45vw, 235px)", overflow: "hidden", position: "relative", background: T.surfaceMuted }}>
                 <img
                     src={product.imageURL || "https://via.placeholder.com/300"}
                     alt={product.name}
@@ -59,14 +59,16 @@ const ProductCard = ({ product, addedId, onAdd }) => {
                 />
                 {product.category && (
                     <span
+                        className="d-none d-sm-inline-block text-truncate"
                         style={{
                             position: "absolute",
-                            top: 12,
-                            left: 12,
+                            top: 10,
+                            left: 10,
+                            maxWidth: "48%",
                             background: "rgba(255, 255, 255, 0.94)",
                             color: T.ink,
-                            fontSize: "10.5px",
-                            padding: "4px 10px",
+                            fontSize: "10px",
+                            padding: "3px 8px",
                             borderRadius: "999px",
                             fontWeight: 600,
                             border: `1px solid ${T.border}`,
@@ -79,12 +81,12 @@ const ProductCard = ({ product, addedId, onAdd }) => {
                     <span
                         style={{
                             position: "absolute",
-                            top: 12,
-                            right: 12,
+                            top: 10,
+                            right: 10,
                             background: "#DC2626",
                             color: "#fff",
-                            fontSize: "10px",
-                            padding: "4px 10px",
+                            fontSize: "9.5px",
+                            padding: "3px 8px",
                             borderRadius: "999px",
                             fontWeight: 700,
                         }}
@@ -95,12 +97,12 @@ const ProductCard = ({ product, addedId, onAdd }) => {
                     <span
                         style={{
                             position: "absolute",
-                            top: 12,
-                            right: 12,
+                            top: 10,
+                            right: 10,
                             background: "#141414",
                             color: "#fff",
-                            fontSize: "10px",
-                            padding: "4px 10px",
+                            fontSize: "9.5px",
+                            padding: "3px 8px",
                             borderRadius: "999px",
                             fontWeight: 600,
                         }}
@@ -111,12 +113,12 @@ const ProductCard = ({ product, addedId, onAdd }) => {
                     <span
                         style={{
                             position: "absolute",
-                            top: 12,
-                            right: 12,
+                            top: 10,
+                            right: 10,
                             background: "#EAEDE6",
                             color: T.sageDark,
-                            fontSize: "10px",
-                            padding: "4px 10px",
+                            fontSize: "9.5px",
+                            padding: "3px 8px",
                             borderRadius: "999px",
                             fontWeight: 700,
                             border: "1px solid rgba(82,94,70,0.18)",
@@ -138,10 +140,10 @@ const ProductCard = ({ product, addedId, onAdd }) => {
                     title={isFav ? "Remove from favorites" : "Add to favorites"}
                     style={{
                         position: "absolute",
-                        bottom: 12,
-                        right: 12,
-                        width: "36px",
-                        height: "36px",
+                        bottom: 10,
+                        right: 10,
+                        width: "32px",
+                        height: "32px",
                         borderRadius: "50%",
                         border: "1px solid rgba(0, 0, 0, 0.08)",
                         background: isFav ? "#FFFFFF" : "rgba(255, 255, 255, 0.92)",
@@ -151,7 +153,7 @@ const ProductCard = ({ product, addedId, onAdd }) => {
                         alignItems: "center",
                         justifyContent: "center",
                         cursor: "pointer",
-                        fontSize: "16px",
+                        fontSize: "15px",
                         color: isFav ? "#EF4444" : "#4B5563",
                         boxShadow: isFav
                             ? "0 4px 12px rgba(239, 68, 68, 0.25)"
@@ -176,13 +178,13 @@ const ProductCard = ({ product, addedId, onAdd }) => {
             </div>
 
             {/* Body */}
-            <div style={{ padding: "18px", display: "flex", flexDirection: "column", gap: "8px", flexGrow: 1 }}>
+            <div style={{ padding: "clamp(12px, 3.5vw, 18px)", display: "flex", flexDirection: "column", gap: "6px", flexGrow: 1 }}>
                 <h6
                     style={{
                         fontWeight: 700,
                         color: T.ink,
                         margin: 0,
-                        fontSize: "15px",
+                        fontSize: "clamp(13px, 3.5vw, 15px)",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap",
@@ -194,14 +196,14 @@ const ProductCard = ({ product, addedId, onAdd }) => {
                 <p
                     style={{
                         color: T.muted,
-                        fontSize: "12.5px",
+                        fontSize: "12px",
                         margin: 0,
                         display: "-webkit-box",
                         WebkitLineClamp: 2,
                         WebkitBoxOrient: "vertical",
                         overflow: "hidden",
-                        minHeight: "36px",
-                        lineHeight: 1.45,
+                        minHeight: "34px",
+                        lineHeight: 1.4,
                     }}
                     title={product.description}
                 >
@@ -213,24 +215,24 @@ const ProductCard = ({ product, addedId, onAdd }) => {
                         justifyContent: "space-between",
                         alignItems: "center",
                         marginTop: "auto",
-                        paddingTop: "4px",
+                        paddingTop: "2px",
                     }}
                 >
-                    <span style={{ fontSize: "11.5px", color: T.sageDark, fontWeight: 700 }}>
+                    <span style={{ fontSize: "11px", color: T.sageDark, fontWeight: 700 }}>
                         {product.category || "Waqas Royal Export"}
                     </span>
-                    <span style={{ fontSize: "11px", color: T.muted, fontWeight: 600 }}>MOQ: 1+</span>
+                    <span style={{ fontSize: "10.5px", color: T.muted, fontWeight: 600 }}>MOQ: 1+</span>
                 </div>
                 <button
                     onClick={() => onAdd(product)}
                     disabled={oos}
                     style={{
                         width: "100%",
-                        padding: "10px 14px",
+                        padding: "8px 12px",
                         borderRadius: "999px",
                         border: "none",
                         fontWeight: 600,
-                        fontSize: "13px",
+                        fontSize: "clamp(11.5px, 2.8vw, 13px)",
                         color: "#FFFFFF",
                         background: added ? T.sageDark : oos ? "#D4D4D0" : T.ink,
                         cursor: oos ? "not-allowed" : "pointer",
