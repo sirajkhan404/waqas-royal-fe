@@ -175,21 +175,60 @@ const ServiceSection = () => {
                 </div>
 
                 <div
-                    className="mt-5 pt-2 text-center"
+                    className="mt-5 pt-2 d-flex justify-content-center"
                     style={{ opacity: headerVisible ? 1 : 0, transition: 'opacity 0.8s ease 0.3s' }}
                 >
+                    <style>{`
+                        .wr-partner-pill {
+                            border-radius: 999px;
+                        }
+                        @media (max-width: 575.98px) {
+                            .wr-partner-pill {
+                                border-radius: 20px !important;
+                                padding: 18px 16px !important;
+                                text-align: center;
+                            }
+                            .wr-partner-pill .btn {
+                                width: 100%;
+                            }
+                        }
+                    `}</style>
                     <div
-                        className="d-inline-flex align-items-center gap-4 px-4 py-3 rounded-pill border flex-wrap justify-content-center"
-                        style={{ background: '#FFFFFF', borderColor: '#E5E5E0' }}
+                        className="wr-partner-pill d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3 gap-sm-4 p-3 px-sm-4 py-sm-3 border shadow-sm"
+                        style={{
+                            background: '#FFFFFF',
+                            borderColor: '#E5E5E0',
+                            maxWidth: '580px',
+                            width: '100%',
+                            transition: 'all 0.25s ease',
+                        }}
                     >
-                        <div className="text-center text-sm-start">
-                            <div className="fw-bold text-dark" style={{ fontSize: '14.5px' }}>Looking for a manufacturing partner?</div>
-                            <div style={{ fontSize: '12.5px', color: '#6A6A64' }}>Browse ready stock or request custom export quotes.</div>
+                        <div className="text-center text-sm-start min-w-0">
+                            <div className="fw-bold text-dark" style={{ fontSize: '15px', letterSpacing: '-0.2px' }}>
+                                Looking for a manufacturing partner?
+                            </div>
+                            <div style={{ fontSize: '12.5px', color: '#6A6A64', marginTop: '2px' }}>
+                                Browse ready stock or request custom export quotes.
+                            </div>
                         </div>
                         <Link
                             to="/sport-wear"
                             className="btn rounded-pill text-white fw-semibold px-4 flex-shrink-0 border-0"
-                            style={{ background: '#141414', fontSize: '13.5px', padding: '9px 22px' }}
+                            style={{
+                                background: '#141414',
+                                fontSize: '13.5px',
+                                padding: '10px 24px',
+                                whiteSpace: 'nowrap',
+                                transition: 'all 0.2s ease',
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.background = '#525E46';
+                                e.currentTarget.style.transform = 'translateY(-1px)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.background = '#141414';
+                                e.currentTarget.style.transform = 'none';
+                            }}
                         >
                             Shop Now →
                         </Link>

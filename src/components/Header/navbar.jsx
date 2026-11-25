@@ -103,9 +103,9 @@ const Navbar = () => {
             <style>{`
                 /* ── Luxury E-Commerce Navbar Styling ── */
                 .wr-nav-link {
-                    font-size: 13.5px;
+                    font-size: 13px;
                     font-weight: 500;
-                    padding: 8px 14px;
+                    padding: 6px 10px;
                     border-radius: 999px;
                     text-decoration: none;
                     white-space: nowrap;
@@ -116,10 +116,10 @@ const Navbar = () => {
                     color: #4A4A45;
                     background: transparent;
                 }
-                @media (max-width: 1200px) and (min-width: 992px) {
+                @media (min-width: 1400px) {
                     .wr-nav-link {
-                        font-size: 12.5px;
-                        padding: 6px 10px;
+                        font-size: 13.5px;
+                        padding: 8px 14px;
                     }
                 }
                 .wr-nav-link:hover {
@@ -214,7 +214,7 @@ const Navbar = () => {
                             alignItems: 'center',
                         }}
                     >
-                        <div className="container-fluid container-xl px-3 px-sm-4 d-flex align-items-center justify-content-between gap-2">
+                        <div className="container-fluid px-3 px-sm-4 px-xxl-5 d-flex align-items-center justify-content-between gap-2" style={{ maxWidth: '1440px', margin: '0 auto' }}>
                             {/* Left: Tagline & Live Export */}
                             <div className="d-flex align-items-center gap-2 text-truncate">
                                 <span
@@ -285,7 +285,7 @@ const Navbar = () => {
                         transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
                     }}
                 >
-                    <div className="container-fluid container-xl px-3 px-sm-4 d-flex align-items-center justify-content-between gap-3">
+                    <div className="container-fluid px-3 px-sm-4 px-xl-4 px-xxl-5 d-flex align-items-center justify-content-between gap-2 gap-xl-3" style={{ maxWidth: '1440px', margin: '0 auto' }}>
                         {/* ── Brand Logo ── */}
                         <Link
                             to="/"
@@ -330,8 +330,8 @@ const Navbar = () => {
                             </div>
                         </Link>
 
-                        {/* ── Desktop Center Navigation Links (Visible on >= 992px) ── */}
-                        <div className="d-none d-lg-flex align-items-center" style={{ gap: '2px' }}>
+                        {/* ── Desktop Center Navigation Links (Visible on >= 1200px) ── */}
+                        <div className="d-none d-xl-flex align-items-center" style={{ gap: '2px' }}>
                             {NAV_LINKS.map((link) => {
                                 const active = isActive(link.to);
                                 return (
@@ -346,8 +346,8 @@ const Navbar = () => {
                             })}
                         </div>
 
-                        {/* ── Desktop Right Actions (Visible on >= 992px) ── */}
-                        <div className="d-none d-lg-flex align-items-center gap-2 flex-shrink-0">
+                        {/* ── Desktop Right Actions (Visible on >= 1200px) ── */}
+                        <div className="d-none d-xl-flex align-items-center gap-2 flex-shrink-0">
                             {/* 1. Wishlist Button */}
                             <button
                                 type="button"
@@ -360,7 +360,7 @@ const Navbar = () => {
                                 ) : (
                                     <HeartOutlined style={{ fontSize: '15px', color: '#3A3A36' }} />
                                 )}
-                                <span className="d-none d-xl-inline">Wishlist</span>
+                                <span className="d-none d-xxl-inline">Wishlist</span>
                                 {totalFavorites > 0 && (
                                     <span
                                         className="badge rounded-pill fw-bold"
@@ -385,7 +385,7 @@ const Navbar = () => {
                                 title="Shopping Cart"
                             >
                                 <ShoppingCartOutlined style={{ fontSize: '16px', color: '#3A3A36' }} />
-                                <span className="d-none d-xl-inline">Cart</span>
+                                <span className="d-none d-xxl-inline">Cart</span>
                                 {totalItems > 0 && (
                                     <span
                                         className="badge rounded-pill fw-bold"
@@ -545,7 +545,7 @@ const Navbar = () => {
                                     <Link
                                         to="/auth/login"
                                         className="wr-action-btn"
-                                        style={{ height: '40px' }}
+                                        style={{ height: '38px', padding: '0 12px' }}
                                     >
                                         Log In
                                     </Link>
@@ -553,10 +553,10 @@ const Navbar = () => {
                                         to="/auth/register"
                                         className="btn rounded-pill fw-semibold text-white border-0 text-nowrap d-flex align-items-center"
                                         style={{
-                                            height: '40px',
-                                            padding: '0 18px',
+                                            height: '38px',
+                                            padding: '0 14px',
                                             background: '#141414',
-                                            fontSize: '13px',
+                                            fontSize: '12.5px',
                                         }}
                                     >
                                         Get Started →
@@ -565,8 +565,8 @@ const Navbar = () => {
                             )}
                         </div>
 
-                        {/* ── Mobile / Tablet Action Icons (Visible on < 992px) ── */}
-                        <div className="d-flex d-lg-none align-items-center gap-2">
+                        {/* ── Mobile / Tablet Action Icons (Visible on < 1200px) ── */}
+                        <div className="d-flex d-xl-none align-items-center gap-2">
                             {/* Wishlist */}
                             <button
                                 type="button"
