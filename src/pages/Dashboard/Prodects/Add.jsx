@@ -4,7 +4,7 @@ import { useAuth } from '@/context/Auth';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftOutlined, CloudUploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
-const categories = ["Sport Wear", "Fashion Wear", "Gym Wear", "Other"];
+const categories = ["Sport Wear", "Fashion Wear", "Gym Wear", "Outer Wear", "Other"];
 
 const initialState = { name: "", stock: "", category: "", description: "" };
 

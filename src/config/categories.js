@@ -48,6 +48,22 @@ export const ROYAL_CATEGORIES = [
         bannerBg: "linear-gradient(135deg, #141414 0%, #373D32 100%)",
         matches: ["gym wear", "gym", "fitness", "activewear"],
     },
+    {
+        key: "outer-wear",
+        name: "Outer Wear",
+        path: "/outer-wear",
+        badge: "ALL-WEATHER EXPORT",
+        tagline: "Jackets, Windbreakers, Coats & Winter Layers",
+        description:
+            "Export-grade insulated jackets, windbreakers, heavy parkas, and weather-resistant outerwear engineered for global fashion retail brands.",
+        image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=700&q=80",
+        fallbackImage: "/images/work-set.jpg",
+        accentColor: "#3B4D3C",
+        accentLight: "#EAEDE6",
+        badgeBg: "#2C3524",
+        bannerBg: "linear-gradient(135deg, #1C2318 0%, #3B4D3C 100%)",
+        matches: ["outer wear", "outerwear", "outer wears", "jacket", "jackets", "coat", "coats", "windbreaker", "parka", "winter wear"],
+    },
 ];
 
 /**

@@ -87,16 +87,17 @@ const CartSidebar = ({ isOpen, onClose }) => {
                 className="position-fixed top-0 h-100 bg-white shadow-lg d-flex flex-column"
                 style={{
                     width: "100%",
-                    maxWidth: "420px",
+                    maxWidth: "400px",
                     right: isOpen ? 0 : "-100%",
                     zIndex: 9999,
                     transition: "right 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
                     boxShadow: isOpen ? "-10px 0 40px rgba(20,20,20,0.2)" : "none",
+                    overflowX: "hidden",
                 }}
             >
                 {/* 1. Header */}
                 <div
-                    className="p-3 px-4 text-white d-flex align-items-center justify-content-between position-relative"
+                    className="p-3 px-3 px-sm-4 text-white d-flex align-items-center justify-content-between position-relative"
                     style={{
                         background: "#525E46",
                     }}
@@ -132,7 +133,7 @@ const CartSidebar = ({ isOpen, onClose }) => {
 
                 {/* 2. Free Delivery Meter */}
                 {cartItems.length > 0 && (
-                    <div className="px-4 py-2 border-bottom" style={{ background: "#F7F7F5", borderColor: "#E5E5E0" }}>
+                    <div className="px-3 px-sm-4 py-2 border-bottom" style={{ background: "#F7F7F5", borderColor: "#E5E5E0" }}>
                         <div className="d-flex align-items-center justify-content-between mb-1" style={{ fontSize: "11.5px" }}>
                             <span className="fw-semibold text-dark">
                                 {totalAmount >= freeShippingThreshold ? (
@@ -157,16 +158,16 @@ const CartSidebar = ({ isOpen, onClose }) => {
                 )}
 
                 {/* 3. Items List Area */}
-                <div className="flex-grow-1 overflow-auto px-3 py-3">
+                <div className="flex-grow-1 overflow-y-auto px-3 py-3" style={{ overflowX: "hidden" }}>
                     {cartItems.length === 0 ? (
                         <div className="text-center py-5 my-auto d-flex flex-column align-items-center justify-content-center h-100">
                             <div
                                 className="rounded-circle d-flex align-items-center justify-content-center mb-3"
                                 style={{
-                                    width: "90px",
-                                    height: "90px",
+                                    width: "80px",
+                                    height: "80px",
                                     background: "#EAEDE6",
-                                    fontSize: "42px",
+                                    fontSize: "36px",
                                 }}
                             >
                                 <ShoppingOutlined style={{ color: '#525E46' }} />
@@ -188,70 +189,82 @@ const CartSidebar = ({ isOpen, onClose }) => {
                             {cartItems.map(item => (
                                 <div
                                     key={item.productId}
-                                    className="d-flex align-items-center gap-3 p-3 rounded-4 border bg-white shadow-sm"
+                                    className="p-3 rounded-3 border bg-white shadow-sm"
                                     style={{ borderColor: "#e5e7eb" }}
                                 >
-                                    <div
-                                        className="rounded-3 overflow-hidden flex-shrink-0 border bg-light"
-                                        style={{ width: "65px", height: "65px", borderColor: "#f1f5f9" }}
-                                    >
-                                        <img
-                                            src={item.imageURL || "https://via.placeholder.com/65"}
-                                            alt={item.name}
-                                            className="w-100 h-100 object-fit-cover"
-                                            onError={e => { e.target.src = "https://via.placeholder.com/65?text=No+Img"; }}
-                                        />
-                                    </div>
-
-                                    <div className="flex-grow-1 min-width-0">
-                                        <div className="fw-semibold text-dark text-truncate" style={{ fontSize: "13.5px" }}>
-                                            {item.name}
-                                        </div>
-                                        <div className="fw-bold mt-1" style={{ fontSize: "13px", color: "#0d9488" }}>
-                                            Rs. {Number(item.price).toLocaleString()}
+                                    <div className="d-flex gap-3 align-items-start">
+                                        {/* Product Thumbnail */}
+                                        <div
+                                            className="rounded-3 overflow-hidden flex-shrink-0 border bg-light"
+                                            style={{ width: "64px", height: "64px", borderColor: "#f1f5f9" }}
+                                        >
+                                            <img
+                                                src={item.imageURL || "https://via.placeholder.com/64"}
+                                                alt={item.name}
+                                                className="w-100 h-100 object-fit-cover"
+                                                onError={e => { e.target.src = "https://via.placeholder.com/64?text=No+Img"; }}
+                                            />
                                         </div>
 
-                                        {/* Stepper */}
-                                        <div className="d-flex align-items-center gap-2 mt-2">
-                                            <div
-                                                className="d-flex align-items-center border rounded-pill p-1 bg-light"
-                                                style={{ borderColor: "#e2e8f0" }}
-                                            >
-                                                <button
-                                                    className="btn btn-sm p-0 rounded-circle d-flex align-items-center justify-content-center border-0 bg-white text-secondary shadow-sm"
-                                                    style={{ width: "22px", height: "22px", fontSize: "12px" }}
-                                                    onClick={() => updateQty(item.productId, item.quantity - 1)}
-                                                    aria-label="Decrease quantity"
+                                        {/* Product Details */}
+                                        <div className="flex-grow-1 min-w-0" style={{ minWidth: 0 }}>
+                                            {/* Name & Delete Button */}
+                                            <div className="d-flex align-items-start justify-content-between gap-2">
+                                                <div
+                                                    className="fw-semibold text-dark text-truncate"
+                                                    style={{ fontSize: "13.5px", lineHeight: 1.35 }}
+                                                    title={item.name}
                                                 >
-                                                    −
-                                                </button>
-                                                <span className="fw-bold px-2" style={{ fontSize: "12px", minWidth: "20px", textAlign: "center" }}>
-                                                    {item.quantity}
-                                                </span>
+                                                    {item.name}
+                                                </div>
                                                 <button
-                                                    className="btn btn-sm p-0 rounded-circle d-flex align-items-center justify-content-center border-0 bg-white text-secondary shadow-sm"
-                                                    style={{ width: "22px", height: "22px", fontSize: "12px" }}
-                                                    disabled={item.stock && item.quantity >= item.stock}
-                                                    onClick={() => updateQty(item.productId, item.quantity + 1)}
-                                                    aria-label="Increase quantity"
+                                                    onClick={() => removeFromCart(item.productId)}
+                                                    className="btn btn-sm p-0 text-danger border-0 bg-transparent flex-shrink-0"
+                                                    style={{ fontSize: "15px", lineHeight: 1 }}
+                                                    title="Remove item"
+                                                    aria-label="Remove item"
                                                 >
-                                                    +
+                                                    <DeleteOutlined />
                                                 </button>
                                             </div>
-                                        </div>
-                                    </div>
 
-                                    <div className="text-end flex-shrink-0 d-flex flex-column align-items-end justify-content-between h-100 py-1">
-                                        <button
-                                            onClick={() => removeFromCart(item.productId)}
-                                            className="btn btn-sm p-1 text-danger border-0 bg-transparent shadow-none"
-                                            style={{ fontSize: "15px", lineHeight: 1 }}
-                                            title="Remove item"
-                                        >
-                                            <DeleteOutlined />
-                                        </button>
-                                        <div className="fw-bold text-dark mt-3" style={{ fontSize: "13px" }}>
-                                            Rs. {(item.price * item.quantity).toLocaleString()}
+                                            {/* Unit Price */}
+                                            <div className="fw-semibold mt-1" style={{ fontSize: "12.5px", color: "#525E46" }}>
+                                                Rs. {Number(item.price).toLocaleString()}
+                                            </div>
+
+                                            {/* Stepper & Total Row */}
+                                            <div className="d-flex align-items-center justify-content-between mt-2 pt-1">
+                                                <div
+                                                    className="d-inline-flex align-items-center border rounded-pill p-1 bg-light"
+                                                    style={{ borderColor: "#e2e8f0" }}
+                                                >
+                                                    <button
+                                                        className="btn btn-sm p-0 rounded-circle d-flex align-items-center justify-content-center border-0 bg-white text-secondary shadow-sm"
+                                                        style={{ width: "22px", height: "22px", fontSize: "12px" }}
+                                                        onClick={() => updateQty(item.productId, item.quantity - 1)}
+                                                        aria-label="Decrease quantity"
+                                                    >
+                                                        −
+                                                    </button>
+                                                    <span className="fw-bold px-2" style={{ fontSize: "12px", minWidth: "22px", textAlign: "center" }}>
+                                                        {item.quantity}
+                                                    </span>
+                                                    <button
+                                                        className="btn btn-sm p-0 rounded-circle d-flex align-items-center justify-content-center border-0 bg-white text-secondary shadow-sm"
+                                                        style={{ width: "22px", height: "22px", fontSize: "12px" }}
+                                                        disabled={item.stock && item.quantity >= item.stock}
+                                                        onClick={() => updateQty(item.productId, item.quantity + 1)}
+                                                        aria-label="Increase quantity"
+                                                    >
+                                                        +
+                                                    </button>
+                                                </div>
+
+                                                <div className="fw-bold text-dark text-end" style={{ fontSize: "13.5px" }}>
+                                                    Rs. {(item.price * item.quantity).toLocaleString()}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -262,22 +275,22 @@ const CartSidebar = ({ isOpen, onClose }) => {
 
                 {/* 4. Footer Checkout Box */}
                 {cartItems.length > 0 && (
-                    <div className="p-3 px-4 border-top bg-light" style={{ borderColor: "#e2e8f0" }}>
-                        {/* <div className="d-flex justify-content-between align-items-center mb-1">
+                    <div className="p-3 px-3 px-sm-4 border-top bg-light" style={{ borderColor: "#e2e8f0" }}>
+                        <div className="d-flex justify-content-between align-items-center mb-1">
                             <span className="text-muted fw-semibold" style={{ fontSize: "13px" }}>Subtotal:</span>
-                            <span className="fw-semibold text-dark" style={{ fontSize: "14px" }}>Rs. {totalAmount.toLocaleString()}</span>
-                        </div> */}
+                            <span className="fw-semibold text-dark" style={{ fontSize: "13.5px" }}>Rs. {totalAmount.toLocaleString()}</span>
+                        </div>
                         <div className="d-flex justify-content-between align-items-center mb-2">
                             <span className="text-muted fw-semibold" style={{ fontSize: "13px" }}>Estimated Shipping:</span>
-                            {/* <span className="fw-semibold text-success" style={{ fontSize: "13px" }}>
-                                {shippingFee === 0 ? "FREE" : "Rs. 200"}
-                            </span> */}
+                            <span className="fw-semibold text-success" style={{ fontSize: "13px" }}>
+                                {shippingFee === 0 ? "FREE" : `Rs. ${shippingFee}`}
+                            </span>
                         </div>
                         <div className="d-flex justify-content-between align-items-center mb-3 pt-2 border-top" style={{ borderColor: "#E5E5E0" }}>
-                            {/* <span className="fw-bold text-dark fs-6"></span> */}
-                            {/* <span className="fw-extrabold fs-5" style={{ color: "#141414" }}>
-                                {grandTotal.toLocaleString()}
-                            </span> */}
+                            <span className="fw-bold text-dark" style={{ fontSize: "14px" }}>Total:</span>
+                            <span className="fw-bold fs-6" style={{ color: "#141414" }}>
+                                Rs. {grandTotal.toLocaleString()}
+                            </span>
                         </div>
 
                         <div className="d-flex gap-2">
@@ -294,7 +307,7 @@ const CartSidebar = ({ isOpen, onClose }) => {
                                     className="btn text-white rounded-pill flex-grow-1 fw-semibold d-flex align-items-center justify-content-center gap-2 border-0"
                                     style={{
                                         background: "#141414",
-                                        fontSize: "14px",
+                                        fontSize: "13.5px",
                                         padding: "10px 16px",
                                     }}
                                 >
@@ -307,7 +320,7 @@ const CartSidebar = ({ isOpen, onClose }) => {
                                     className="btn text-white rounded-pill flex-grow-1 fw-semibold d-flex align-items-center justify-content-center gap-1 border-0"
                                     style={{
                                         background: "#525E46",
-                                        fontSize: "14px",
+                                        fontSize: "13.5px",
                                         padding: "10px 16px",
                                     }}
                                 >

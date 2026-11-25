@@ -25,6 +25,7 @@ const CATEGORY_LINKS = [
     { to: '/sport-wear', label: 'Sport Wear', badge: 'Kits & Jerseys', dot: '#525E46' },
     { to: '/fashion-wear', label: 'Fashion Wear', badge: 'Streetwear', dot: '#6E7D60' },
     { to: '/gym-wear', label: 'Gym Wear', badge: 'Compression', dot: '#141414' },
+    { to: '/outer-wear', label: 'Outer Wear', badge: 'Jackets & Coats', dot: '#3B4D3C' },
 ];
 
 const NAV_LINKS = [
@@ -32,6 +33,7 @@ const NAV_LINKS = [
     { to: '/sport-wear', label: 'Sport Wear' },
     { to: '/fashion-wear', label: 'Fashion Wear' },
     { to: '/gym-wear', label: 'Gym Wear' },
+    { to: '/outer-wear', label: 'Outer Wear' },
     { to: '/about', label: 'About' },
     { to: '/contact', label: 'Contact' },
 ];
@@ -99,33 +101,39 @@ const Navbar = () => {
     return (
         <>
             <style>{`
-                /* ── Navbar Global Animations & Styles ── */
-                .wr-nav-pill-link {
+                /* ── Luxury E-Commerce Navbar Styling ── */
+                .wr-nav-link {
                     font-size: 13.5px;
                     font-weight: 500;
-                    padding: 7px 15px;
+                    padding: 8px 14px;
                     border-radius: 999px;
                     text-decoration: none;
                     white-space: nowrap;
                     display: inline-flex;
                     align-items: center;
                     gap: 6px;
-                    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-                    color: #3A3A36;
+                    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+                    color: #4A4A45;
                     background: transparent;
                 }
-                .wr-nav-pill-link:hover {
+                @media (max-width: 1200px) and (min-width: 992px) {
+                    .wr-nav-link {
+                        font-size: 12.5px;
+                        padding: 6px 10px;
+                    }
+                }
+                .wr-nav-link:hover {
                     color: #141414;
                     background: rgba(82, 94, 70, 0.08);
                 }
-                .wr-nav-pill-link.active {
-                    color: #FFFFFF;
-                    background: #141414;
+                .wr-nav-link.active {
+                    color: #FFFFFF !important;
+                    background: #141414 !important;
                     font-weight: 600;
-                    box-shadow: 0 2px 8px rgba(20, 20, 20, 0.15);
+                    box-shadow: 0 4px 14px rgba(20, 20, 20, 0.15);
                 }
                 .wr-action-btn {
-                    height: 40px;
+                    height: 38px;
                     border-radius: 999px;
                     border: 1px solid #E5E5E0;
                     background: #FFFFFF;
@@ -139,6 +147,7 @@ const Navbar = () => {
                     padding: 0 14px;
                     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
                     text-decoration: none;
+                    cursor: pointer;
                 }
                 .wr-action-btn:hover {
                     background: #F7F7F5;
@@ -148,8 +157,8 @@ const Navbar = () => {
                     color: #141414;
                 }
                 .wr-action-icon-only {
-                    width: 40px;
-                    height: 40px;
+                    width: 38px;
+                    height: 38px;
                     padding: 0;
                 }
                 .wr-drawer-item {
@@ -178,7 +187,6 @@ const Navbar = () => {
                     border-radius: 50%;
                     display: inline-block;
                 }
-                /* Top Announcement marquee / links */
                 .wr-top-link {
                     color: #5A5A54;
                     text-decoration: none;
@@ -323,23 +331,14 @@ const Navbar = () => {
                         </Link>
 
                         {/* ── Desktop Center Navigation Links (Visible on >= 992px) ── */}
-                        <div
-                            className="d-none d-lg-flex align-items-center"
-                            style={{
-                                gap: '3px',
-                                padding: '4px 6px',
-                                borderRadius: '999px',
-                                background: '#F7F7F5',
-                                border: '1px solid #E5E5E0',
-                            }}
-                        >
+                        <div className="d-none d-lg-flex align-items-center" style={{ gap: '2px' }}>
                             {NAV_LINKS.map((link) => {
                                 const active = isActive(link.to);
                                 return (
                                     <Link
                                         key={link.to}
                                         to={link.to}
-                                        className={`wr-nav-pill-link ${active ? 'active' : ''}`}
+                                        className={`wr-nav-link ${active ? 'active' : ''}`}
                                     >
                                         <span>{link.label}</span>
                                     </Link>

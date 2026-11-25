@@ -20,7 +20,7 @@ import {
     SaveOutlined
 } from '@ant-design/icons'
 
-const categories = ["Sport Wear", "Fashion Wear", "Gym Wear", "Electronics", "Clothing", "Footwear", "Books", "Home & Kitchen", "Sports", "Toys", "Beauty", "Grocery", "Fast Food", "Other"]
+const categories = ["Sport Wear", "Fashion Wear", "Gym Wear", "Outer Wear", "Electronics", "Clothing", "Footwear", "Books", "Home & Kitchen", "Sports", "Toys", "Beauty", "Grocery", "Fast Food", "Other"]
 
 const stockBadge = (stock) => {
     if (stock <= 0) return { label: 'Out of Stock', bg: '#fef2f2', color: '#dc2626', border: '#fecaca' }

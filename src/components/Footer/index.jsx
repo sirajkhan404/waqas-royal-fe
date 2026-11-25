@@ -236,6 +236,7 @@ const Footer = () => {
                                 { to: '/sport-wear', label: 'Sport Wear' },
                                 { to: '/fashion-wear', label: 'Fashion Wear' },
                                 { to: '/gym-wear', label: 'Gym Wear' },
+                                { to: '/outer-wear', label: 'Outer Wear' },
                                 { to: '/about', label: 'About Us' },
                                 { to: '/contact', label: 'Contact Us' },
                             ].map((link, idx) => (

@@ -74,7 +74,7 @@ const CIRCULAR_COLLECTIONS = [
     },
     {
         title: "Outer Wears",
-        path: "/fashion-wear",
+        path: "/outer-wear",
         image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=700&q=80",
         fallback: "/images/work-set.jpg",
     },

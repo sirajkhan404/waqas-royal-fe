@@ -17,6 +17,8 @@ const Frontend = () => {
                 <Route path='sport-wear' element={<CategoryPage categoryKey="sport-wear" />} />
                 <Route path='fashion-wear' element={<CategoryPage categoryKey="fashion-wear" />} />
                 <Route path='gym-wear' element={<CategoryPage categoryKey="gym-wear" />} />
+                <Route path='outer-wear' element={<CategoryPage categoryKey="outer-wear" />} />
+                <Route path='outer-wears' element={<CategoryPage categoryKey="outer-wear" />} />
                 <Route path='contact' element={<Contact />} />
             </Routes>
             <Footer />
